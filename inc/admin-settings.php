@@ -20,23 +20,23 @@ function dp_starter_settings_defaults()
         'logo_id'           => 0,
         'favicon_id'        => 0,
         // Appearance — Light.
-        'color_bg'          => '#fffaf1',
-        'color_bg_soft'     => '#fffaf2',
+        'color_bg'          => '#f0fafb',
+        'color_bg_soft'     => '#e8f7f9',
         'color_panel'       => '#ffffff',
-        'color_ink'         => '#18130c',
-        'color_black'       => '#14110a',
-        'color_muted'       => '#5f5547',
-        'color_muted_2'     => '#887b6a',
-        'color_gold'        => '#ffc45e',
-        'color_gold_strong' => '#f2a720',
-        'color_bronze'      => '#b97824',
-        'color_danger_soft' => '#fff3ed',
+        'color_ink'         => '#0c1a1d',
+        'color_black'       => '#0a1416',
+        'color_muted'       => '#4a6b70',
+        'color_muted_2'     => '#6b9198',
+        'color_gold'        => '#85D1DB',
+        'color_gold_strong' => '#B3EBF2',
+        'color_bronze'      => '#5bb8c4',
+        'color_danger_soft' => '#edf9fb',
         // Appearance — Dark.
-        'color_dark_bg'        => '#050607',
-        'color_dark_text'      => '#f8f2e8',
-        'color_dark_text_soft' => '#d9cfc0',
-        'color_dark_link'      => '#d7cdbf',
-        'color_gold_hover'     => '#ffd47f',
+        'color_dark_bg'        => '#050a0b',
+        'color_dark_text'      => '#e8f5f7',
+        'color_dark_text_soft' => '#b0d5db',
+        'color_dark_link'      => '#B6F2D1',
+        'color_gold_hover'     => '#C9FDF2',
         // Appearance — Layout.
         'border_radius'     => '8',
         // Typography.
@@ -1130,9 +1130,9 @@ function dp_starter_settings_page_render()
     .dp-sidebar-item { display: flex; align-items: center; gap: 10px; padding: 11px 20px; color: #bbc8d4; text-decoration: none; font-size: 13px; font-weight: 500; transition: all 120ms; border-left: 3px solid transparent; }
     .dp-sidebar-item:hover { color: #fff; background: rgba(255,255,255,0.06); }
     .dp-sidebar-item:focus { color: #fff; box-shadow: none; outline: none; }
-    .dp-sidebar-item.is-active { color: #fff; background: rgba(255,255,255,0.08); border-left-color: #f0b849; }
+    .dp-sidebar-item.is-active { color: #fff; background: rgba(255,255,255,0.08); border-left-color: #85D1DB; }
     .dp-sidebar-item .dashicons { font-size: 16px; width: 16px; height: 16px; opacity: 0.65; }
-    .dp-sidebar-item.is-active .dashicons { opacity: 1; color: #f0b849; }
+    .dp-sidebar-item.is-active .dashicons { opacity: 1; color: #85D1DB; }
 
     /* ── Panel ── */
     .dp-settings-panel { background: #fff; padding: 28px 32px; overflow-y: auto; }
@@ -1162,7 +1162,7 @@ function dp_starter_settings_page_render()
         .dp-settings-layout { grid-template-columns: 1fr; }
         .dp-settings-sidebar { flex-direction: row; flex-wrap: wrap; padding: 8px; gap: 4px; }
         .dp-sidebar-item { padding: 8px 12px; border-left: none; border-bottom: 2px solid transparent; font-size: 12px; }
-        .dp-sidebar-item.is-active { border-left: none; border-bottom-color: #f0b849; }
+        .dp-sidebar-item.is-active { border-left: none; border-bottom-color: #85D1DB; }
         .dp-sidebar-item .dashicons { display: none; }
         .dp-settings-panel { padding: 20px 16px; }
     }

@@ -13,24 +13,24 @@ Text Domain: dp-starter
 */
 
 :root {
-  --dp-bg: #fffaf1;
-  --dp-bg-soft: #fffaf2;
+  --dp-bg: #f0fafb;
+  --dp-bg-soft: #e8f7f9;
   --dp-panel: #ffffff;
-  --dp-ink: #18130c;
-  --dp-black: #14110a;
-  --dp-muted: #5f5547;
-  --dp-muted-2: #887b6a;
-  --dp-line: rgba(24, 19, 12, 0.12);
-  --dp-line-strong: rgba(24, 19, 12, 0.22);
-  --dp-gold: #ffc45e;
-  --dp-gold-strong: #f2a720;
-  --dp-bronze: #b97824;
-  --dp-danger-soft: #fff3ed;
-  --dp-dark-bg: var(--dp-dark-bg);
-  --dp-dark-text: #f8f2e8;
-  --dp-dark-text-soft: #d9cfc0;
-  --dp-dark-link: #d7cdbf;
-  --dp-gold-hover: #ffd47f;
+  --dp-ink: #0c1a1d;
+  --dp-black: #0a1416;
+  --dp-muted: #4a6b70;
+  --dp-muted-2: #6b9198;
+  --dp-line: rgba(12, 26, 29, 0.12);
+  --dp-line-strong: rgba(12, 26, 29, 0.22);
+  --dp-gold: #85D1DB;
+  --dp-gold-strong: #B3EBF2;
+  --dp-bronze: #5bb8c4;
+  --dp-danger-soft: #edf9fb;
+  --dp-dark-bg: #050a0b;
+  --dp-dark-text: #e8f5f7;
+  --dp-dark-text-soft: #b0d5db;
+  --dp-dark-link: #B6F2D1;
+  --dp-gold-hover: #C9FDF2;
   --dp-shadow: 0 22px 60px rgba(64, 43, 16, 0.14);
   --dp-shadow-strong: 0 28px 80px rgba(20, 17, 10, 0.22);
   --dp-radius: 8px;
