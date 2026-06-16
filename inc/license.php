@@ -223,7 +223,73 @@ add_action('init', 'dp_starter_schedule_license_check');
 add_action('dp_starter_license_cron', 'dp_starter_validate_license');
 
 /* =========================================================================
-   5. PREMIUM CODE LOADER
+   5. AUTOMATIC THEME UPDATES
+   ========================================================================= */
+
+/**
+ * Check for theme updates from the license server.
+ *
+ * Hooks into WordPress update system so updates appear in
+ * Appearance → Themes and Dashboard → Updates, with one-click install.
+ *
+ * @param object $transient The update_themes transient.
+ * @return object
+ */
+function dp_starter_check_theme_update($transient)
+{
+    if (empty($transient->checked)) {
+        return $transient;
+    }
+
+    $theme_slug    = 'dp-starter';
+    $current_version = defined('DP_STARTER_VERSION') ? DP_STARTER_VERSION : '0.0.0';
+
+    // Only check once every 12 hours.
+    $cache = get_transient('dp_starter_update_data');
+    if ($cache === false) {
+        $response = wp_remote_get(
+            trailingslashit(DP_LICENSE_API_URL) . 'update-check',
+            array('timeout' => 10)
+        );
+
+        if (is_wp_error($response)) {
+            return $transient;
+        }
+
+        $cache = json_decode(wp_remote_retrieve_body($response), true);
+        if (!is_array($cache) || empty($cache['version'])) {
+            return $transient;
+        }
+
+        set_transient('dp_starter_update_data', $cache, 12 * HOUR_IN_SECONDS);
+    }
+
+    if (version_compare($cache['version'], $current_version, '>')) {
+        $transient->response[$theme_slug] = array(
+            'theme'       => $theme_slug,
+            'new_version' => $cache['version'],
+            'url'         => $cache['details_url'] ?? '',
+            'package'     => $cache['download_url'] ?? '',
+            'requires'    => $cache['requires'] ?? '6.0',
+            'requires_php' => $cache['requires_php'] ?? '7.4',
+        );
+    }
+
+    return $transient;
+}
+add_filter('pre_set_site_transient_update_themes', 'dp_starter_check_theme_update');
+
+/**
+ * Clear update cache when theme is updated.
+ */
+function dp_starter_clear_update_cache()
+{
+    delete_transient('dp_starter_update_data');
+}
+add_action('upgrader_process_complete', 'dp_starter_clear_update_cache');
+
+/* =========================================================================
+   6. PREMIUM CODE LOADER
    ========================================================================= */
 
 /**
