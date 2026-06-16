@@ -33,6 +33,125 @@ if (!defined('DP_STARTER_THEME_URI')) {
     define('DP_STARTER_THEME_URI', get_template_directory_uri());
 }
 
+/* =========================================================================
+   THEME PAGES SETUP
+   ========================================================================= */
+
+/**
+ * List of theme pages that should exist for full functionality.
+ *
+ * @return array<string, array{title: string, template: string, content: string}>
+ */
+function dp_starter_required_pages()
+{
+    return array(
+        'start-here' => array(
+            'title'    => __('Start Here', 'dp-starter'),
+            'template' => '',
+            'content'  => __('Welcome! This is your starting point.', 'dp-starter'),
+        ),
+        'books' => array(
+            'title'    => __('Books', 'dp-starter'),
+            'template' => 'page-books.php',
+            'content'  => '',
+        ),
+        'tools' => array(
+            'title'    => __('Tools', 'dp-starter'),
+            'template' => 'page-tools.php',
+            'content'  => '',
+        ),
+        'offer' => array(
+            'title'    => __('Offer', 'dp-starter'),
+            'template' => 'template-offer.php',
+            'content'  => '',
+        ),
+        'blog' => array(
+            'title'    => __('Blog', 'dp-starter'),
+            'template' => '',
+            'content'  => '',
+        ),
+    );
+}
+
+/**
+ * Check which required pages exist.
+ *
+ * @return array<string, array{exists: bool, id: int, edit_url: string}>
+ */
+function dp_starter_check_pages()
+{
+    $pages = dp_starter_required_pages();
+    $status = array();
+    foreach ($pages as $slug => $page) {
+        $existing = get_page_by_path($slug);
+        $status[$slug] = array(
+            'exists'   => (bool) $existing,
+            'id'       => $existing ? $existing->ID : 0,
+            'edit_url' => $existing ? get_edit_post_link($existing->ID, 'raw') : '',
+        );
+    }
+    return $status;
+}
+
+/**
+ * AJAX: Create missing theme pages.
+ */
+function dp_starter_ajax_setup_pages()
+{
+    check_ajax_referer('dp_setup_pages', 'nonce');
+
+    if (!current_user_can('manage_options')) {
+        wp_send_json_error(__('Permission denied.', 'dp-starter'));
+    }
+
+    $pages = dp_starter_required_pages();
+    $created = array();
+    $skipped = array();
+
+    foreach ($pages as $slug => $page) {
+        $existing = get_page_by_path($slug);
+        if ($existing) {
+            $skipped[] = $page['title'];
+            continue;
+        }
+
+        $post_data = array(
+            'post_title'   => $page['title'],
+            'post_name'    => $slug,
+            'post_content' => $page['content'],
+            'post_status'  => 'publish',
+            'post_type'    => 'page',
+        );
+
+        $post_id = wp_insert_post($post_data);
+
+        if ($post_id && !is_wp_error($post_id)) {
+            if ($page['template']) {
+                update_post_meta($post_id, '_wp_page_template', $page['template']);
+            }
+            // Set "Blog" as the posts page.
+            if ($slug === 'blog') {
+                update_option('page_for_posts', $post_id);
+            }
+            $created[] = $page['title'];
+        }
+    }
+
+    // Flush rewrite rules after creating pages.
+    flush_rewrite_rules();
+
+    $msg = '';
+    if (!empty($created)) {
+        $msg .= sprintf(__('Created: %s.', 'dp-starter'), implode(', ', $created));
+    }
+    if (!empty($skipped)) {
+        $msg .= ' ' . sprintf(__('Already exist: %s.', 'dp-starter'), implode(', ', $skipped));
+    }
+
+    wp_send_json_success($msg ?: __('All pages already exist.', 'dp-starter'));
+}
+add_action('wp_ajax_dp_setup_pages', 'dp_starter_ajax_setup_pages');
+
 if (!function_exists('dp_starter_setup')) {
     /**
      * Register theme support and navigation menus.

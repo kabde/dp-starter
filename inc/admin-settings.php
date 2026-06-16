@@ -473,6 +473,76 @@ function dp_starter_settings_page_render()
                         </tr>
                     </table>
                 </div>
+                <div class="dp-admin-section">
+                    <h2><?php esc_html_e('Theme Pages', 'dp-starter'); ?></h2>
+                    <p class="description" style="margin-bottom:16px;">
+                        <?php esc_html_e('These pages are required for full theme functionality. Click "Create Missing Pages" to set them up automatically.', 'dp-starter'); ?>
+                    </p>
+                    <?php
+                    $page_status = dp_starter_check_pages();
+                    $required_pages = dp_starter_required_pages();
+                    ?>
+                    <table class="widefat striped" style="max-width:600px;">
+                        <thead>
+                            <tr>
+                                <th><?php esc_html_e('Page', 'dp-starter'); ?></th>
+                                <th><?php esc_html_e('Slug', 'dp-starter'); ?></th>
+                                <th><?php esc_html_e('Status', 'dp-starter'); ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($required_pages as $slug => $page) :
+                                $status = $page_status[$slug];
+                            ?>
+                                <tr>
+                                    <td><strong><?php echo esc_html($page['title']); ?></strong></td>
+                                    <td><code>/<?php echo esc_html($slug); ?>/</code></td>
+                                    <td>
+                                        <?php if ($status['exists']) : ?>
+                                            <span style="color:#2ecc71;font-weight:600;">&#10003; <?php esc_html_e('Exists', 'dp-starter'); ?></span>
+                                            <a href="<?php echo esc_url($status['edit_url']); ?>" style="margin-left:8px;font-size:12px;"><?php esc_html_e('Edit', 'dp-starter'); ?></a>
+                                        <?php else : ?>
+                                            <span style="color:#e74c3c;font-weight:600;">&#10007; <?php esc_html_e('Missing', 'dp-starter'); ?></span>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <p style="margin-top:16px;">
+                        <button type="button" class="button button-primary" id="dp-setup-pages">
+                            <?php esc_html_e('Create Missing Pages', 'dp-starter'); ?>
+                        </button>
+                        <span id="dp-setup-pages-msg" style="margin-left:12px;"></span>
+                    </p>
+                    <script>
+                    (function(){
+                        var btn = document.getElementById('dp-setup-pages');
+                        var msg = document.getElementById('dp-setup-pages-msg');
+                        btn.addEventListener('click', function() {
+                            btn.disabled = true;
+                            btn.textContent = '<?php echo esc_js(__('Creating...', 'dp-starter')); ?>';
+                            msg.textContent = '';
+                            var fd = new FormData();
+                            fd.append('action', 'dp_setup_pages');
+                            fd.append('nonce', '<?php echo esc_js(wp_create_nonce('dp_setup_pages')); ?>');
+                            fetch('<?php echo esc_url(admin_url('admin-ajax.php')); ?>', { method: 'POST', body: fd })
+                                .then(function(r) { return r.json(); })
+                                .then(function(d) {
+                                    msg.textContent = d.data || '';
+                                    msg.style.color = d.success ? '#2ecc71' : '#e74c3c';
+                                    setTimeout(function() { location.reload(); }, 1500);
+                                })
+                                .catch(function() {
+                                    msg.textContent = '<?php echo esc_js(__('Error. Please try again.', 'dp-starter')); ?>';
+                                    msg.style.color = '#e74c3c';
+                                    btn.disabled = false;
+                                    btn.textContent = '<?php echo esc_js(__('Create Missing Pages', 'dp-starter')); ?>';
+                                });
+                        });
+                    })();
+                    </script>
+                </div>
             </div>
 
             <!-- ═══ APPEARANCE ═══ -->
