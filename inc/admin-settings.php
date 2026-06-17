@@ -182,12 +182,14 @@ function dp_starter_get_logo_url()
 
 function dp_starter_admin_menu()
 {
-    add_theme_page(
-        __('DP Starter Settings', 'dp-starter'),
-        __('DP Starter Settings', 'dp-starter'),
+    add_menu_page(
+        __('DP Starter', 'dp-starter'),
+        __('DP Starter', 'dp-starter'),
         'manage_options',
         'dp-starter-settings',
-        'dp_starter_settings_page_render'
+        'dp_starter_settings_page_render',
+        'dashicons-art',
+        3
     );
 }
 add_action('admin_menu', 'dp_starter_admin_menu');
