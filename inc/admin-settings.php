@@ -374,6 +374,7 @@ function dp_starter_admin_enqueue($hook)
     wp_enqueue_media();
     wp_enqueue_style('wp-color-picker');
     wp_enqueue_script('wp-color-picker');
+    wp_enqueue_script('jquery-ui-sortable');
 
     // CodeMirror for Advanced tab.
     $cm_settings = array('type' => 'text/css');
@@ -773,9 +774,36 @@ function dp_starter_settings_page_render()
                         <tr><th scope="row"><?php esc_html_e('Title', 'dp-starter'); ?></th><td>
                             <input type="text" name="dp_starter_settings[home_situations_title]" value="<?php echo esc_attr($s['home_situations_title']); ?>" class="large-text">
                         </td></tr>
-                        <tr><th scope="row"><?php esc_html_e('Items', 'dp-starter'); ?></th><td>
-                            <textarea name="dp_starter_settings[home_situations_items]" rows="8" class="large-text"><?php echo esc_textarea($s['home_situations_items']); ?></textarea>
-                            <p class="description"><?php esc_html_e('One card per line. Format: Label|Title|Description|URL', 'dp-starter'); ?></p>
+                        <tr><th scope="row"><?php esc_html_e('Cards', 'dp-starter'); ?></th><td>
+                            <div class="dp-repeater" data-name="home_situations_items" data-fields="label,title,description,url">
+                                <?php
+                                $sit_items = array_filter(explode("\n", $s['home_situations_items']));
+                                foreach ($sit_items as $i => $line) :
+                                    $parts = explode('|', $line);
+                                    $lbl = $parts[0] ?? ''; $ttl = $parts[1] ?? ''; $desc = $parts[2] ?? ''; $url = $parts[3] ?? '';
+                                ?>
+                                <div class="dp-repeater-card">
+                                    <div class="dp-repeater-card-header">
+                                        <span class="dp-repeater-drag">&#9776;</span>
+                                        <strong class="dp-repeater-card-title"><?php echo esc_html($lbl ?: __('Card', 'dp-starter') . ' ' . ($i + 1)); ?></strong>
+                                        <span class="dp-repeater-toggle">&#9660;</span>
+                                        <button type="button" class="dp-repeater-remove" title="<?php esc_attr_e('Remove', 'dp-starter'); ?>">&times;</button>
+                                    </div>
+                                    <div class="dp-repeater-card-body">
+                                        <label><?php esc_html_e('Label', 'dp-starter'); ?></label>
+                                        <input type="text" data-field="label" value="<?php echo esc_attr($lbl); ?>" class="regular-text">
+                                        <label><?php esc_html_e('Title', 'dp-starter'); ?></label>
+                                        <input type="text" data-field="title" value="<?php echo esc_attr($ttl); ?>" class="large-text">
+                                        <label><?php esc_html_e('Description', 'dp-starter'); ?></label>
+                                        <textarea data-field="description" rows="2" class="large-text"><?php echo esc_textarea($desc); ?></textarea>
+                                        <label><?php esc_html_e('URL', 'dp-starter'); ?></label>
+                                        <input type="text" data-field="url" value="<?php echo esc_attr($url); ?>" class="regular-text">
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <button type="button" class="button dp-repeater-add" data-target="home_situations_items"><?php esc_html_e('+ Add Card', 'dp-starter'); ?></button>
+                            <textarea name="dp_starter_settings[home_situations_items]" class="dp-repeater-store" style="display:none;"><?php echo esc_textarea($s['home_situations_items']); ?></textarea>
                         </td></tr>
                     </table>
                 </div>
@@ -839,9 +867,34 @@ function dp_starter_settings_page_render()
                         <tr><th scope="row"><?php esc_html_e('Title', 'dp-starter'); ?></th><td>
                             <input type="text" name="dp_starter_settings[home_resources_title]" value="<?php echo esc_attr($s['home_resources_title']); ?>" class="large-text">
                         </td></tr>
-                        <tr><th scope="row"><?php esc_html_e('Items', 'dp-starter'); ?></th><td>
-                            <textarea name="dp_starter_settings[home_resources_items]" rows="8" class="large-text"><?php echo esc_textarea($s['home_resources_items']); ?></textarea>
-                            <p class="description"><?php esc_html_e('One card per line. Format: Title|Description|URL', 'dp-starter'); ?></p>
+                        <tr><th scope="row"><?php esc_html_e('Cards', 'dp-starter'); ?></th><td>
+                            <div class="dp-repeater" data-name="home_resources_items" data-fields="title,description,url">
+                                <?php
+                                $res_items = array_filter(explode("\n", $s['home_resources_items']));
+                                foreach ($res_items as $i => $line) :
+                                    $parts = explode('|', $line);
+                                    $ttl = $parts[0] ?? ''; $desc = $parts[1] ?? ''; $url = $parts[2] ?? '';
+                                ?>
+                                <div class="dp-repeater-card">
+                                    <div class="dp-repeater-card-header">
+                                        <span class="dp-repeater-drag">&#9776;</span>
+                                        <strong class="dp-repeater-card-title"><?php echo esc_html($ttl ?: __('Card', 'dp-starter') . ' ' . ($i + 1)); ?></strong>
+                                        <span class="dp-repeater-toggle">&#9660;</span>
+                                        <button type="button" class="dp-repeater-remove" title="<?php esc_attr_e('Remove', 'dp-starter'); ?>">&times;</button>
+                                    </div>
+                                    <div class="dp-repeater-card-body">
+                                        <label><?php esc_html_e('Title', 'dp-starter'); ?></label>
+                                        <input type="text" data-field="title" value="<?php echo esc_attr($ttl); ?>" class="regular-text">
+                                        <label><?php esc_html_e('Description', 'dp-starter'); ?></label>
+                                        <textarea data-field="description" rows="2" class="large-text"><?php echo esc_textarea($desc); ?></textarea>
+                                        <label><?php esc_html_e('URL', 'dp-starter'); ?></label>
+                                        <input type="text" data-field="url" value="<?php echo esc_attr($url); ?>" class="regular-text">
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <button type="button" class="button dp-repeater-add" data-target="home_resources_items"><?php esc_html_e('+ Add Card', 'dp-starter'); ?></button>
+                            <textarea name="dp_starter_settings[home_resources_items]" class="dp-repeater-store" style="display:none;"><?php echo esc_textarea($s['home_resources_items']); ?></textarea>
                         </td></tr>
                     </table>
                 </div>
@@ -863,8 +916,28 @@ function dp_starter_settings_page_render()
                             <textarea name="dp_starter_settings[home_antiadvice_description]" rows="3" class="large-text"><?php echo esc_textarea($s['home_antiadvice_description']); ?></textarea>
                         </td></tr>
                         <tr><th scope="row"><?php esc_html_e('Items', 'dp-starter'); ?></th><td>
-                            <textarea name="dp_starter_settings[home_antiadvice_items]" rows="5" class="large-text"><?php echo esc_textarea($s['home_antiadvice_items']); ?></textarea>
-                            <p class="description"><?php esc_html_e('One item per line.', 'dp-starter'); ?></p>
+                            <div class="dp-repeater" data-name="home_antiadvice_items" data-fields="text">
+                                <?php
+                                $aa_items = array_filter(explode("\n", $s['home_antiadvice_items']));
+                                foreach ($aa_items as $i => $line) :
+                                    $text = trim($line);
+                                ?>
+                                <div class="dp-repeater-card">
+                                    <div class="dp-repeater-card-header">
+                                        <span class="dp-repeater-drag">&#9776;</span>
+                                        <strong class="dp-repeater-card-title"><?php echo esc_html(mb_strimwidth($text, 0, 60, '...') ?: __('Item', 'dp-starter') . ' ' . ($i + 1)); ?></strong>
+                                        <span class="dp-repeater-toggle">&#9660;</span>
+                                        <button type="button" class="dp-repeater-remove" title="<?php esc_attr_e('Remove', 'dp-starter'); ?>">&times;</button>
+                                    </div>
+                                    <div class="dp-repeater-card-body">
+                                        <label><?php esc_html_e('Text', 'dp-starter'); ?></label>
+                                        <textarea data-field="text" rows="2" class="large-text"><?php echo esc_textarea($text); ?></textarea>
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <button type="button" class="button dp-repeater-add" data-target="home_antiadvice_items"><?php esc_html_e('+ Add Item', 'dp-starter'); ?></button>
+                            <textarea name="dp_starter_settings[home_antiadvice_items]" class="dp-repeater-store" style="display:none;"><?php echo esc_textarea($s['home_antiadvice_items']); ?></textarea>
                         </td></tr>
                     </table>
                 </div>
@@ -1152,6 +1225,30 @@ function dp_starter_settings_page_render()
     .dp-admin-section .form-table th { font-weight: 600; color: #374151; padding-top: 16px; }
     .dp-admin-section .form-table td { padding-top: 12px; }
 
+    /* ── Repeater ── */
+    .dp-repeater { display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }
+    .dp-repeater-card { background:#fff; border:1px solid #e5e7eb; border-radius:6px; overflow:hidden; transition:box-shadow 150ms,border-color 150ms; }
+    .dp-repeater-card:hover { border-color:#c3c4c7; }
+    .dp-repeater-card.is-open { border-color:#85D1DB; box-shadow:0 0 0 1px rgba(133,209,219,0.3); }
+    .dp-repeater-card-header { display:flex; align-items:center; gap:8px; padding:10px 14px; cursor:pointer; user-select:none; background:#fafbfc; border-bottom:1px solid transparent; transition:background 120ms; }
+    .dp-repeater-card.is-open .dp-repeater-card-header { background:#f0fafb; border-bottom-color:#e5e7eb; }
+    .dp-repeater-card-header:hover { background:#f0f6f7; }
+    .dp-repeater-drag { cursor:grab; color:#9ca3af; font-size:16px; line-height:1; padding:2px 4px; flex-shrink:0; }
+    .dp-repeater-drag:hover { color:#4b5563; }
+    .dp-repeater-card-title { flex:1; font-size:13px; font-weight:600; color:#1d2327; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .dp-repeater-toggle { display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; flex-shrink:0; transition:transform 200ms ease; color:#9ca3af; font-size:14px; }
+    .dp-repeater-card.is-open .dp-repeater-toggle { transform:rotate(180deg); color:#374151; }
+    .dp-repeater-remove { background:none; border:none; color:#9ca3af; font-size:18px; line-height:1; cursor:pointer; padding:2px 6px; border-radius:4px; flex-shrink:0; transition:all 120ms; }
+    .dp-repeater-remove:hover { color:#dc2626; background:#fef2f2; }
+    .dp-repeater-card-body { display:none; padding:16px; }
+    .dp-repeater-card.is-open .dp-repeater-card-body { display:block; animation:dpFadeIn 150ms ease; }
+    .dp-repeater-card-body label { display:block; font-size:12px; font-weight:600; color:#374151; margin:0 0 4px; text-transform:uppercase; letter-spacing:0.03em; }
+    .dp-repeater-card-body label:not(:first-child) { margin-top:12px; }
+    .dp-repeater-card-body input[type="text"], .dp-repeater-card-body textarea { width:100%; max-width:100%; }
+    .dp-repeater-add { align-self:flex-start; margin-top:4px !important; }
+    .dp-repeater .ui-sortable-placeholder { visibility:visible !important; background:#f0fafb; border:2px dashed #85D1DB; border-radius:6px; height:48px; margin-bottom:8px; }
+    .dp-repeater-card.ui-sortable-helper { box-shadow:0 4px 16px rgba(0,0,0,0.12); transform:rotate(1deg); z-index:100; }
+
     /* ── Media ── */
     .dp-media-preview { margin-bottom: 10px; }
     .dp-media-preview img { max-width: 300px; max-height: 100px; border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px; background: #fff; }
@@ -1269,6 +1366,79 @@ function dp_starter_settings_page_render()
             $('#dp-' + t + '-id').val('0');
             $('#dp-' + t + '-preview').hide().html('');
             $(this).hide();
+        });
+
+        /* ── Repeater fields ── */
+        $(document).on('click', '.dp-repeater-card-header', function(e) {
+            if ($(e.target).closest('.dp-repeater-remove').length) return;
+            $(this).closest('.dp-repeater-card').toggleClass('is-open');
+        });
+
+        function dpSyncRepeater($repeater) {
+            var fields = $repeater.data('fields').split(',');
+            var lines = [];
+            $repeater.find('.dp-repeater-card').each(function() {
+                var $card = $(this);
+                var parts = [];
+                $.each(fields, function(_, field) {
+                    var val = $card.find('[data-field="' + field + '"]').val() || '';
+                    val = val.replace(/\|/g, '&#124;').replace(/\n/g, ' ');
+                    parts.push(val);
+                });
+                lines.push(parts.join('|'));
+            });
+            $repeater.siblings('.dp-repeater-store').val(lines.join('\n'));
+        }
+
+        function dpUpdateCardTitle($card) {
+            var $first = $card.find('.dp-repeater-card-body').find('input, textarea').first();
+            var val = $first.val();
+            val = val ? (val.length > 60 ? val.substring(0, 60) + '...' : val) : 'New card';
+            $card.find('.dp-repeater-card-title').text(val);
+        }
+
+        $(document).on('input change', '.dp-repeater-card-body input, .dp-repeater-card-body textarea', function() {
+            var $card = $(this).closest('.dp-repeater-card');
+            dpUpdateCardTitle($card);
+            dpSyncRepeater($card.closest('.dp-repeater'));
+        });
+
+        $('.dp-repeater-add').on('click', function() {
+            var target = $(this).data('target');
+            var $repeater = $('.dp-repeater[data-name="' + target + '"]');
+            var fields = $repeater.data('fields').split(',');
+            var labels = { label:'Label', title:'Title', description:'Description', url:'URL', text:'Text' };
+            var html = '<div class="dp-repeater-card is-open"><div class="dp-repeater-card-header"><span class="dp-repeater-drag">&#9776;</span><strong class="dp-repeater-card-title">New card</strong><span class="dp-repeater-toggle">&#9660;</span><button type="button" class="dp-repeater-remove" title="Remove">&times;</button></div><div class="dp-repeater-card-body">';
+            $.each(fields, function(_, f) {
+                html += '<label>' + (labels[f] || f) + '</label>';
+                html += (f === 'description' || f === 'text') ? '<textarea data-field="' + f + '" rows="2" class="large-text"></textarea>' : '<input type="text" data-field="' + f + '" value="" class="' + (f === 'url' || f === 'label' ? 'regular-text' : 'large-text') + '">';
+            });
+            html += '</div></div>';
+            var $new = $(html);
+            $repeater.append($new);
+            $new.find('input, textarea').first().focus();
+            if ($repeater.hasClass('ui-sortable')) $repeater.sortable('refresh');
+            dpSyncRepeater($repeater);
+        });
+
+        $(document).on('click', '.dp-repeater-remove', function(e) {
+            e.stopPropagation();
+            var $card = $(this).closest('.dp-repeater-card');
+            var $repeater = $card.closest('.dp-repeater');
+            if (!confirm('Remove "' + $card.find('.dp-repeater-card-title').text() + '"?')) return;
+            $card.slideUp(200, function() { $(this).remove(); dpSyncRepeater($repeater); });
+        });
+
+        $('.dp-repeater').sortable({
+            handle: '.dp-repeater-drag',
+            placeholder: 'ui-sortable-placeholder',
+            tolerance: 'pointer',
+            opacity: 0.85,
+            update: function() { dpSyncRepeater($(this)); }
+        });
+
+        $('#dp-settings-form').on('submit', function() {
+            $('.dp-repeater').each(function() { dpSyncRepeater($(this)); });
         });
 
         /* ── Font preview ── */
