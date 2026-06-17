@@ -724,7 +724,6 @@ function dp_starter_fallback_menu($class_name = 'dp-menu')
         'blog'       => __('Guides', 'dp-starter'),
         'tools'      => __('Tools', 'dp-starter'),
         'books'      => __('Books', 'dp-starter'),
-        'start-here' => __('Start Here', 'dp-starter'),
     );
     $items = array();
     foreach ($slugs as $slug => $label) {
