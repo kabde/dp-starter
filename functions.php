@@ -720,13 +720,21 @@ function dp_starter_trim_words($text, $words = 24)
  */
 function dp_starter_fallback_menu($class_name = 'dp-menu')
 {
-    $items = array(
-        __('Guides', 'dp-starter')     => home_url('/blog/'),
-        __('Tools', 'dp-starter')      => home_url('/tools/'),
-        __('Books', 'dp-starter')      => home_url('/books/'),
-        __('Platforms', 'dp-starter')  => home_url('/platforms/'),
-        __('Programs', 'dp-starter')   => home_url('/programs/'),
+    $slugs = array(
+        'blog'       => __('Guides', 'dp-starter'),
+        'tools'      => __('Tools', 'dp-starter'),
+        'books'      => __('Books', 'dp-starter'),
+        'start-here' => __('Start Here', 'dp-starter'),
     );
+    $items = array();
+    foreach ($slugs as $slug => $label) {
+        $page = get_page_by_path($slug);
+        if ($page) {
+            $items[$label] = get_permalink($page);
+        } else {
+            $items[$label] = home_url('/' . $slug . '/');
+        }
+    }
     ?>
     <ul class="<?php echo esc_attr($class_name); ?>">
         <?php foreach ($items as $label => $url) : ?>
