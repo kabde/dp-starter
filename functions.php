@@ -220,11 +220,12 @@ add_action('after_setup_theme', 'dp_starter_content_width', 0);
  */
 function dp_starter_enqueue_assets()
 {
+    $css_version = DP_STARTER_VERSION . '.' . absint(get_option('dp_starter_settings_version', 0));
     wp_enqueue_style(
         'dp-starter-style',
         get_stylesheet_uri(),
         array(),
-        DP_STARTER_VERSION
+        $css_version
     );
 
     $script_path = DP_STARTER_THEME_DIR . '/assets/js/theme.js';

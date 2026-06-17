@@ -356,6 +356,9 @@ function dp_starter_sanitize_settings($input)
         }
     }
 
+    // Bump CSS cache-buster on every save.
+    update_option('dp_starter_settings_version', time());
+
     return $clean;
 }
 
@@ -543,6 +546,9 @@ function dp_starter_settings_page_render()
                     })();
                     </script>
                 </div>
+                <?php if (function_exists('dp_starter_render_demo_section')) : ?>
+                    <?php dp_starter_render_demo_section(); ?>
+                <?php endif; ?>
             </div>
 
             <!-- ═══ APPEARANCE ═══ -->

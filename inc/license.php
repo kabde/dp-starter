@@ -390,7 +390,7 @@ function dp_starter_load_premium_code()
     $enc_key = dp_starter_get_encryption_key();
 
     // Load order matters: CPT registration first, then features that depend on them.
-    $load_order = array('cpt', 'maintenance', 'woocommerce', 'tracking', 'offer-products', 'article-cta', 'admin-comments', 'offer-links');
+    $load_order = array('cpt', 'maintenance', 'woocommerce', 'tracking', 'offer-products', 'article-cta', 'admin-comments', 'offer-links', 'demo-importer');
 
     foreach ($load_order as $name) {
         if (empty($files[$name])) {
