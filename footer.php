@@ -76,8 +76,8 @@ foreach ($social_map as $key => $data) {
                             'depth'          => 1,
                         ));
                     } else {
-                        // Fallback: show links to legal pages if they exist.
-                        $fallback_slugs = array('privacy-policy', 'terms-and-conditions', 'refund-policy', 'contact');
+                        // Fallback: show links to theme pages.
+                        $fallback_slugs = array('start-here', 'blog', 'books', 'tools', 'privacy-policy', 'terms-and-conditions', 'refund-policy', 'contact');
                         $fallback_links = array();
                         foreach ($fallback_slugs as $slug) {
                             $page = get_page_by_path($slug);
