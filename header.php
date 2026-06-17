@@ -23,7 +23,7 @@ if (!defined('ABSPATH')) {
 
     <header class="dp-site-header" data-dp-header>
         <a class="dp-brand" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php esc_attr_e('Home', 'dp-starter'); ?>">
-            <img class="dp-brand-logo" src="<?php echo esc_url(dp_starter_get_logo_url()); ?>" alt="<?php esc_attr_e('DP Starter', 'dp-starter'); ?>">
+            <img class="dp-brand-logo" src="<?php echo esc_url(dp_starter_get_logo_url()); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>">
         </a>
 
         <?php if (has_nav_menu('primary')) : ?>
@@ -60,7 +60,7 @@ if (!defined('ABSPATH')) {
     <div class="dp-mobile-nav" id="dp-mobile-nav" data-dp-nav>
         <div class="dp-mobile-nav-header">
             <a class="dp-brand" href="<?php echo esc_url(home_url('/')); ?>">
-                <img class="dp-brand-logo" src="<?php echo esc_url(dp_starter_get_logo_url()); ?>" alt="<?php esc_attr_e('DP Starter', 'dp-starter'); ?>">
+                <img class="dp-brand-logo" src="<?php echo esc_url(dp_starter_get_logo_url()); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>">
             </a>
             <button class="dp-mobile-close" type="button" data-dp-menu-close aria-label="<?php esc_attr_e('Close menu', 'dp-starter'); ?>">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>

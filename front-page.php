@@ -169,24 +169,15 @@ $hero_proof_lines = array_filter(array_map('trim', explode("\n", dp_starter_get_
         'orderby'        => 'date',
         'order'          => 'DESC',
         'meta_query'     => array(
-            'relation' => 'AND',
+            'relation' => 'OR',
             array(
-                'key'     => 'dp_book_published_date',
-                'value'   => '2018',
-                'compare' => '>=',
-                'type'    => 'NUMERIC',
+                'key'     => '_thumbnail_id',
+                'compare' => 'EXISTS',
             ),
             array(
-                'relation' => 'OR',
-                array(
-                    'key'     => '_thumbnail_id',
-                    'compare' => 'EXISTS',
-                ),
-                array(
-                    'key'     => 'dp_book_cover_image_url',
-                    'value'   => '',
-                    'compare' => '!=',
-                ),
+                'key'     => 'dp_book_cover_image_url',
+                'value'   => '',
+                'compare' => '!=',
             ),
         ),
     ));

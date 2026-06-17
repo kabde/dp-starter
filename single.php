@@ -49,7 +49,7 @@ while (have_posts()) :
 
                 <?php if (has_post_thumbnail()) : ?>
                     <div class="dp-single-hero-media">
-                        <?php the_post_thumbnail('large'); ?>
+                        <?php the_post_thumbnail('dp-starter-hero'); ?>
                     </div>
                 <?php endif; ?>
             </div>

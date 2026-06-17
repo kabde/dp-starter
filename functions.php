@@ -45,6 +45,11 @@ if (!defined('DP_STARTER_THEME_URI')) {
 function dp_starter_required_pages()
 {
     return array(
+        'home' => array(
+            'title'    => __('Home', 'dp-starter'),
+            'template' => '',
+            'content'  => '',
+        ),
         'start-here' => array(
             'title'    => __('Start Here', 'dp-starter'),
             'template' => '',
@@ -128,6 +133,11 @@ function dp_starter_ajax_setup_pages()
         if ($post_id && !is_wp_error($post_id)) {
             if ($page['template']) {
                 update_post_meta($post_id, '_wp_page_template', $page['template']);
+            }
+            // Set "Home" as the front page.
+            if ($slug === 'home') {
+                update_option('show_on_front', 'page');
+                update_option('page_on_front', $post_id);
             }
             // Set "Blog" as the posts page.
             if ($slug === 'blog') {

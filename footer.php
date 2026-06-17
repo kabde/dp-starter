@@ -75,6 +75,19 @@ foreach ($social_map as $key => $data) {
                             'menu_class'     => 'dp-footer-menu',
                             'depth'          => 1,
                         ));
+                    } else {
+                        // Fallback: show links to legal pages if they exist.
+                        $fallback_slugs = array('privacy-policy', 'terms-and-conditions', 'refund-policy', 'contact');
+                        $fallback_links = array();
+                        foreach ($fallback_slugs as $slug) {
+                            $page = get_page_by_path($slug);
+                            if ($page) {
+                                $fallback_links[] = '<li><a href="' . esc_url(get_permalink($page)) . '">' . esc_html($page->post_title) . '</a></li>';
+                            }
+                        }
+                        if (!empty($fallback_links)) {
+                            echo '<ul class="dp-footer-menu">' . implode('', $fallback_links) . '</ul>';
+                        }
                     }
                     ?>
                 </nav>

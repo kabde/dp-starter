@@ -166,8 +166,7 @@ button {
   padding: 12px max(24px, calc((100vw - var(--dp-max)) / 2));
   color: var(--dp-dark-text);
   border-bottom: 2px solid var(--dp-gold);
-  background: color-mix(in srgb, var(--dp-dark-bg) 94%, transparent);
-  backdrop-filter: blur(18px);
+  background: #000000;
 }
 
 .dp-brand {
@@ -2533,11 +2532,11 @@ a:hover .dp-text-link::after,
 
 .dp-footer-brand p {
   margin: 0;
-  color: #c8bfb1;
+  color: var(--dp-dark-text-soft);
 }
 
 .dp-footer-nav {
-  color: #c8bfb1;
+  color: var(--dp-dark-text-soft);
 }
 
 .dp-footer-menu {
@@ -2546,7 +2545,7 @@ a:hover .dp-text-link::after,
 }
 
 .dp-footer-menu a {
-  color: #c8bfb1;
+  color: var(--dp-dark-text-soft);
   font-size: 0.9rem;
   font-weight: 800;
   text-decoration: none;
