@@ -556,22 +556,74 @@ function dp_starter_settings_page_render()
 
             <!-- ═══ APPEARANCE ═══ -->
             <div class="dp-tab-content" id="tab-appearance">
+
+                <!-- Header & Navigation -->
                 <div class="dp-admin-section">
-                    <h2><?php esc_html_e('Light Palette', 'dp-starter'); ?></h2>
+                    <h2><?php esc_html_e('Header & Navigation', 'dp-starter'); ?></h2>
+                    <p class="description"><?php esc_html_e('Controls the top bar, logo area, and navigation menu.', 'dp-starter'); ?></p>
+                    <div class="dp-color-preview" id="dp-preview-header" style="margin:16px 0;border-radius:6px;overflow:hidden;">
+                        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:<?php echo esc_attr($s['color_dark_bg']); ?>;border-bottom:2px solid <?php echo esc_attr($s['color_gold']); ?>;">
+                            <span style="font-weight:700;color:<?php echo esc_attr($s['color_dark_text']); ?>;font-size:14px;">Logo</span>
+                            <div style="display:flex;gap:16px;">
+                                <span style="color:<?php echo esc_attr($s['color_dark_link']); ?>;font-size:13px;">Menu Item</span>
+                                <span style="color:<?php echo esc_attr($s['color_dark_link']); ?>;font-size:13px;">Menu Item</span>
+                                <span style="background:<?php echo esc_attr($s['color_gold']); ?>;color:<?php echo esc_attr($s['color_black']); ?>;padding:4px 14px;border-radius:<?php echo absint($s['border_radius']); ?>px;font-size:12px;font-weight:700;">CTA</span>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="form-table">
+                        <?php
+                        $header_colors = array(
+                            'color_dark_bg'   => __('Background', 'dp-starter'),
+                            'color_dark_text' => __('Text', 'dp-starter'),
+                            'color_dark_link' => __('Menu Links', 'dp-starter'),
+                            'color_gold_hover' => __('Link Hover', 'dp-starter'),
+                            'color_gold'      => __('Accent (border & CTA)', 'dp-starter'),
+                        );
+                        foreach ($header_colors as $key => $label) : ?>
+                            <tr><th scope="row"><?php echo esc_html($label); ?></th><td>
+                                <input type="text" class="dp-color-picker" name="dp_starter_settings[<?php echo esc_attr($key); ?>]" value="<?php echo esc_attr($s[$key]); ?>" data-default-color="<?php echo esc_attr($defaults[$key]); ?>">
+                            </td></tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+
+                <!-- Content Area -->
+                <div class="dp-admin-section">
+                    <h2><?php esc_html_e('Content Area', 'dp-starter'); ?></h2>
+                    <p class="description"><?php esc_html_e('Controls page backgrounds, text colors, cards, and accent colors for links and buttons.', 'dp-starter'); ?></p>
+                    <div class="dp-color-preview" style="margin:16px 0;border-radius:6px;overflow:hidden;border:1px solid #e5e7eb;">
+                        <div style="background:<?php echo esc_attr($s['color_bg']); ?>;padding:20px;">
+                            <p style="margin:0 0 8px;color:<?php echo esc_attr($s['color_ink']); ?>;font-weight:600;">Heading Text</p>
+                            <p style="margin:0 0 8px;color:<?php echo esc_attr($s['color_muted']); ?>;font-size:13px;">Muted description text with a <span style="color:<?php echo esc_attr($s['color_bronze']); ?>;text-decoration:underline;">link example</span></p>
+                            <div style="display:flex;gap:8px;margin-top:12px;">
+                                <div style="flex:1;background:<?php echo esc_attr($s['color_panel']); ?>;padding:12px;border-radius:<?php echo absint($s['border_radius']); ?>px;border:1px solid rgba(0,0,0,0.06);">
+                                    <span style="font-size:12px;color:<?php echo esc_attr($s['color_ink']); ?>;font-weight:600;">Card</span>
+                                </div>
+                                <div style="flex:1;background:<?php echo esc_attr($s['color_bg_soft']); ?>;padding:12px;border-radius:<?php echo absint($s['border_radius']); ?>px;">
+                                    <span style="font-size:12px;color:<?php echo esc_attr($s['color_muted_2']); ?>;">Soft section</span>
+                                </div>
+                            </div>
+                            <div style="margin-top:12px;">
+                                <span style="display:inline-block;background:<?php echo esc_attr($s['color_gold']); ?>;color:<?php echo esc_attr($s['color_black']); ?>;padding:6px 16px;border-radius:<?php echo absint($s['border_radius']); ?>px;font-size:12px;font-weight:700;">Button</span>
+                                <span style="display:inline-block;border:1px solid <?php echo esc_attr($s['color_gold']); ?>;color:<?php echo esc_attr($s['color_ink']); ?>;padding:6px 16px;border-radius:<?php echo absint($s['border_radius']); ?>px;font-size:12px;font-weight:700;margin-left:8px;">Secondary</span>
+                            </div>
+                        </div>
+                    </div>
                     <table class="form-table">
                         <?php
                         $light_colors = array(
-                            'color_bg'          => __('Background', 'dp-starter'),
-                            'color_bg_soft'     => __('Soft Background', 'dp-starter'),
-                            'color_panel'       => __('Panel / Card', 'dp-starter'),
+                            'color_bg'          => __('Page Background', 'dp-starter'),
+                            'color_bg_soft'     => __('Soft Background (alternating sections)', 'dp-starter'),
+                            'color_panel'       => __('Card / Panel', 'dp-starter'),
                             'color_ink'         => __('Primary Text', 'dp-starter'),
-                            'color_black'       => __('Dark / Black', 'dp-starter'),
+                            'color_black'       => __('Headings', 'dp-starter'),
                             'color_muted'       => __('Muted Text', 'dp-starter'),
                             'color_muted_2'     => __('Secondary Muted', 'dp-starter'),
-                            'color_gold'        => __('Gold Accent', 'dp-starter'),
-                            'color_gold_strong' => __('Gold Strong (hover)', 'dp-starter'),
-                            'color_bronze'      => __('Bronze / Links', 'dp-starter'),
-                            'color_danger_soft' => __('Alert Background', 'dp-starter'),
+                            'color_gold'        => __('Accent (buttons, badges, borders)', 'dp-starter'),
+                            'color_gold_strong' => __('Accent Hover', 'dp-starter'),
+                            'color_bronze'      => __('Links', 'dp-starter'),
+                            'color_danger_soft' => __('Alert / Notice Background', 'dp-starter'),
                         );
                         foreach ($light_colors as $key => $label) : ?>
                             <tr><th scope="row"><?php echo esc_html($label); ?></th><td>
@@ -581,16 +633,24 @@ function dp_starter_settings_page_render()
                     </table>
                 </div>
 
+                <!-- Dark Sections -->
                 <div class="dp-admin-section">
-                    <h2><?php esc_html_e('Dark Palette (header, hero, footer)', 'dp-starter'); ?></h2>
+                    <h2><?php esc_html_e('Dark Sections', 'dp-starter'); ?></h2>
+                    <p class="description"><?php esc_html_e('Used for hero areas, dark cards, carousel, and feature highlights. Also used by header and footer.', 'dp-starter'); ?></p>
+                    <div class="dp-color-preview" style="margin:16px 0;border-radius:6px;overflow:hidden;">
+                        <div style="background:<?php echo esc_attr($s['color_dark_bg']); ?>;padding:20px;">
+                            <p style="margin:0 0 4px;color:<?php echo esc_attr($s['color_dark_text']); ?>;font-weight:700;font-size:15px;">Dark Section Title</p>
+                            <p style="margin:0 0 12px;color:<?php echo esc_attr($s['color_dark_text_soft']); ?>;font-size:13px;">Supporting text in a dark hero or feature section</p>
+                            <a href="#" style="color:<?php echo esc_attr($s['color_dark_link']); ?>;font-size:13px;text-decoration:none;" onclick="return false;">Link in dark section →</a>
+                        </div>
+                    </div>
                     <table class="form-table">
                         <?php
                         $dark_colors = array(
-                            'color_dark_bg'        => __('Dark Background', 'dp-starter'),
-                            'color_dark_text'      => __('Dark Section — Text', 'dp-starter'),
-                            'color_dark_text_soft' => __('Dark Section — Muted', 'dp-starter'),
-                            'color_dark_link'      => __('Dark Section — Links', 'dp-starter'),
-                            'color_gold_hover'     => __('Gold Hover', 'dp-starter'),
+                            'color_dark_bg'        => __('Background', 'dp-starter'),
+                            'color_dark_text'      => __('Text', 'dp-starter'),
+                            'color_dark_text_soft' => __('Muted Text', 'dp-starter'),
+                            'color_dark_link'      => __('Links', 'dp-starter'),
                         );
                         foreach ($dark_colors as $key => $label) : ?>
                             <tr><th scope="row"><?php echo esc_html($label); ?></th><td>
@@ -600,11 +660,39 @@ function dp_starter_settings_page_render()
                     </table>
                 </div>
 
+                <!-- Footer -->
                 <div class="dp-admin-section">
-                    <h2><?php esc_html_e('Layout', 'dp-starter'); ?></h2>
+                    <h2><?php esc_html_e('Footer', 'dp-starter'); ?></h2>
+                    <p class="description"><?php esc_html_e('The footer inherits Dark Section colors. Customize the accent and social icon appearance here.', 'dp-starter'); ?></p>
+                    <div class="dp-color-preview" style="margin:16px 0;border-radius:6px;overflow:hidden;">
+                        <div style="background:<?php echo esc_attr($s['color_dark_bg']); ?>;padding:16px 20px;border-top:2px solid <?php echo esc_attr($s['color_gold']); ?>;">
+                            <div style="display:flex;align-items:center;justify-content:space-between;">
+                                <div>
+                                    <span style="color:<?php echo esc_attr($s['color_dark_text']); ?>;font-weight:700;font-size:13px;">Logo</span>
+                                    <p style="margin:4px 0 0;color:<?php echo esc_attr($s['color_dark_text_soft']); ?>;font-size:11px;">Tagline text</p>
+                                </div>
+                                <div style="display:flex;gap:8px;">
+                                    <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:rgba(255,255,255,0.06);border-radius:50%;color:<?php echo esc_attr($s['color_dark_link']); ?>;font-size:11px;">f</span>
+                                    <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:rgba(255,255,255,0.06);border-radius:50%;color:<?php echo esc_attr($s['color_dark_link']); ?>;font-size:11px;">t</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="color:#666;font-size:13px;font-style:italic;margin:0 0 12px;">
+                        <?php esc_html_e('Footer uses the Dark Section colors above. Change those to update the footer appearance.', 'dp-starter'); ?>
+                    </p>
+                </div>
+
+                <!-- Layout & UI -->
+                <div class="dp-admin-section">
+                    <h2><?php esc_html_e('Layout & UI', 'dp-starter'); ?></h2>
                     <table class="form-table">
-                        <tr><th scope="row"><?php esc_html_e('Border Radius (px)', 'dp-starter'); ?></th><td>
+                        <tr><th scope="row"><?php esc_html_e('Border Radius', 'dp-starter'); ?></th><td>
                             <input type="number" name="dp_starter_settings[border_radius]" value="<?php echo esc_attr($s['border_radius']); ?>" min="0" max="50" class="small-text"> px
+                            <div style="margin-top:8px;display:flex;gap:8px;align-items:center;">
+                                <div style="width:40px;height:28px;background:<?php echo esc_attr($s['color_gold']); ?>;border-radius:<?php echo absint($s['border_radius']); ?>px;"></div>
+                                <span style="font-size:12px;color:#666;"><?php esc_html_e('Preview', 'dp-starter'); ?></span>
+                            </div>
                         </td></tr>
                     </table>
                     <p><button type="button" class="button" id="dp-reset-colors"><?php esc_html_e('Reset All Colors to Defaults', 'dp-starter'); ?></button></p>
@@ -1335,8 +1423,16 @@ function dp_starter_settings_page_render()
         activateTab(hash || 'general');
 
         /* ── Reset colors ── */
-        var allDefaults = <?php echo wp_json_encode(array_merge($light_colors, $dark_colors)); ?>;
-        var defaultValues = <?php echo wp_json_encode(array_intersect_key($defaults, array_merge($light_colors, $dark_colors))); ?>;
+        var allColorKeys = <?php echo wp_json_encode(array(
+            'color_bg', 'color_bg_soft', 'color_panel', 'color_ink', 'color_black',
+            'color_muted', 'color_muted_2', 'color_gold', 'color_gold_strong',
+            'color_bronze', 'color_danger_soft',
+            'color_dark_bg', 'color_dark_text', 'color_dark_text_soft',
+            'color_dark_link', 'color_gold_hover',
+        )); ?>;
+        var defaultValues = {};
+        var allDefaults = <?php echo wp_json_encode($defaults); ?>;
+        allColorKeys.forEach(function(k) { if (allDefaults[k]) defaultValues[k] = allDefaults[k]; });
         $('#dp-reset-colors').on('click', function() {
             if (!confirm('<?php echo esc_js(__('Reset all colors to defaults?', 'dp-starter')); ?>')) return;
             $.each(defaultValues, function(key, val) {
