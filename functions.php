@@ -22,7 +22,7 @@ require_once get_template_directory() . '/inc/widgets.php';
 dp_starter_load_premium_code();
 
 if (!defined('DP_STARTER_VERSION')) {
-    define('DP_STARTER_VERSION', '3.2.0');
+    define('DP_STARTER_VERSION', '3.2.1');
 }
 
 if (!defined('DP_STARTER_THEME_DIR')) {
