@@ -20,8 +20,8 @@ while (have_posts()) :
     $offer_title  = dp_starter_page_display_title(get_the_ID());
     $offer_desc   = has_excerpt() ? get_the_excerpt() : trim(wp_strip_all_tags(get_the_content()));
 
-    // Fetch products using priority logic.
-    $products = dp_starter_get_offer_products(get_the_ID());
+    // Fetch products using priority logic (premium feature).
+    $products = function_exists('dp_starter_get_offer_products') ? dp_starter_get_offer_products(get_the_ID()) : array();
 
     // Identify the best seller product.
     $featured_product = null;
@@ -81,7 +81,9 @@ while (have_posts()) :
 
         <div class="dp-offer-cards">
             <?php foreach ($products as $i => $product) :
-                dp_starter_render_product_card($product, $i);
+                if (function_exists('dp_starter_render_product_card')) {
+                    dp_starter_render_product_card($product, $i);
+                }
             endforeach; ?>
         </div>
     </div>

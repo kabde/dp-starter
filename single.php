@@ -60,7 +60,7 @@ while (have_posts()) :
                 <main>
                     <?php get_template_part('template-parts/content-single'); ?>
 
-                    <?php dp_starter_render_article_cta(get_the_ID()); ?>
+                    <?php if (function_exists('dp_starter_render_article_cta')) { dp_starter_render_article_cta(get_the_ID()); } ?>
 
                     <?php if (!$is_advertorial) : ?>
                         <nav class="dp-post-nav" aria-label="<?php esc_attr_e('Article navigation', 'dp-starter'); ?>">
