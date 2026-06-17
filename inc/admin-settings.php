@@ -1616,6 +1616,24 @@ add_action('wp_enqueue_scripts', 'dp_starter_enqueue_google_fonts', 5);
    8. DYNAMIC CSS OUTPUT
    ========================================================================= */
 
+/**
+ * Convert hex color to RGB components string.
+ *
+ * @param string $hex Hex color (e.g. '#85D1DB').
+ * @return string RGB components (e.g. '133, 209, 219').
+ */
+function dp_starter_hex_to_rgb($hex)
+{
+    $hex = ltrim($hex, '#');
+    if (strlen($hex) === 3) {
+        $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+    }
+    $r = hexdec(substr($hex, 0, 2));
+    $g = hexdec(substr($hex, 2, 2));
+    $b = hexdec(substr($hex, 4, 2));
+    return "{$r}, {$g}, {$b}";
+}
+
 function dp_starter_dynamic_css()
 {
     $defaults = dp_starter_settings_defaults();
@@ -1639,6 +1657,17 @@ function dp_starter_dynamic_css()
         '--dp-dark-text-soft' => $s['color_dark_text_soft'],
         '--dp-dark-link'      => $s['color_dark_link'],
         '--dp-gold-hover'     => $s['color_gold_hover'],
+        // RGB versions for opacity variants.
+        '--dp-gold-rgb'        => dp_starter_hex_to_rgb($s['color_gold']),
+        '--dp-gold-strong-rgb' => dp_starter_hex_to_rgb($s['color_gold_strong']),
+        '--dp-white-rgb'       => '255, 255, 255',
+        '--dp-black-rgb'       => dp_starter_hex_to_rgb($s['color_black']),
+        '--dp-dark-bg-rgb'     => dp_starter_hex_to_rgb($s['color_dark_bg']),
+        '--dp-ink-rgb'         => dp_starter_hex_to_rgb($s['color_ink']),
+        '--dp-shadow-rgb'      => '0, 0, 0',
+        '--dp-error'           => '#c0392b',
+        '--dp-error-rgb'       => '192, 57, 43',
+        // Layout.
         '--dp-radius'         => absint($s['border_radius']) . 'px',
         '--dp-font-body'      => '"' . $s['font_body'] . '", ui-sans-serif, system-ui, -apple-system, sans-serif',
         '--dp-font-heading'   => '"' . $s['font_heading'] . '", ui-sans-serif, system-ui, -apple-system, sans-serif',
