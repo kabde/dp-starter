@@ -558,10 +558,10 @@ p {
   align-items: center;
   min-height: 28px;
   padding: 0 10px;
-  border: 1px solid rgba(255, 196, 94, 0.46);
+  border: 1px solid #00BCD4;
   border-radius: 999px;
   color: var(--dp-bronze);
-  background: rgba(255, 196, 94, 0.12);
+  background: rgb(245 254 255);
   font-size: 0.74rem;
   font-weight: 950;
   letter-spacing: 0.08em;

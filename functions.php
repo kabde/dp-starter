@@ -34,6 +34,53 @@ if (!defined('DP_STARTER_THEME_URI')) {
 }
 
 /* =========================================================================
+   THEME AUTO-SETUP ON ACTIVATION
+   ========================================================================= */
+
+/**
+ * Automatically create required pages and configure WordPress on theme activation.
+ */
+function dp_starter_on_activation()
+{
+    $pages = dp_starter_required_pages();
+
+    foreach ($pages as $slug => $page) {
+        if (get_page_by_path($slug)) {
+            continue;
+        }
+
+        $post_id = wp_insert_post(array(
+            'post_title'   => $page['title'],
+            'post_name'    => $slug,
+            'post_content' => $page['content'],
+            'post_status'  => 'publish',
+            'post_type'    => 'page',
+        ));
+
+        if ($post_id && !is_wp_error($post_id)) {
+            if ($page['template']) {
+                update_post_meta($post_id, '_wp_page_template', $page['template']);
+            }
+            if ($slug === 'home') {
+                update_option('show_on_front', 'page');
+                update_option('page_on_front', $post_id);
+            }
+            if ($slug === 'blog') {
+                update_option('page_for_posts', $post_id);
+            }
+        }
+    }
+
+    // Set permalinks to post name if still on default.
+    if (get_option('permalink_structure') === '') {
+        update_option('permalink_structure', '/%postname%/');
+    }
+
+    flush_rewrite_rules();
+}
+add_action('after_switch_theme', 'dp_starter_on_activation');
+
+/* =========================================================================
    THEME PAGES SETUP
    ========================================================================= */
 
