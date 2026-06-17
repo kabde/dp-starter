@@ -18,7 +18,7 @@ get_header();
         <p class="dp-kicker"><?php esc_html_e('DP Starter Resource', 'dp-starter'); ?></p>
         <h1><?php esc_html_e('Resources and Guides', 'dp-starter'); ?></h1>
         <p class="dp-lede">
-            <?php esc_html_e('Practical coaching-business resources, guides, tools, and notes.', 'dp-starter'); ?>
+            <?php esc_html_e('Practical resources, guides, tools, and notes for digital product creators.', 'dp-starter'); ?>
         </p>
 
         <?php if (have_posts()) : ?>

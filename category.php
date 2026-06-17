@@ -120,7 +120,7 @@ $siblings         = get_categories(
         <div class="dp-shell">
             <div class="dp-section-heading">
                 <p class="dp-kicker"><?php esc_html_e('Related topics', 'dp-starter'); ?></p>
-                <h2 id="dp-more-topics-title"><?php esc_html_e('Other coaching-business decisions to explore.', 'dp-starter'); ?></h2>
+                <h2 id="dp-more-topics-title"><?php esc_html_e('Other topics to explore.', 'dp-starter'); ?></h2>
             </div>
             <div class="dp-topic-strip">
                 <?php foreach ($siblings as $sibling) : ?>

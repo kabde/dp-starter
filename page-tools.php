@@ -55,7 +55,7 @@ while (have_posts()) :
                         <p class="dp-lede"><?php echo esc_html($page_desc); ?></p>
                     <?php else : ?>
                         <p class="dp-lede">
-                            <?php esc_html_e('Compare practical tools for booking calls, tracking conversations, taking payments, delivering coaching, collecting proof, and staying consistent without building a bloated tech stack.', 'dp-starter'); ?>
+                            <?php esc_html_e('Compare practical tools for building, selling, delivering, and automating your digital products without building a bloated tech stack.', 'dp-starter'); ?>
                         </p>
                     <?php endif; ?>
                 </div>
