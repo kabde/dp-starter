@@ -102,8 +102,10 @@ foreach ($social_map as $key => $data) {
 
         <?php
         // In focused checkout mode, show policy links as popups in footer.
+        // Skip on page-checkout.php which has its own policy section.
         $is_focused = in_array('dp-checkout-mode', get_body_class(), true);
-        if ($is_focused) :
+        $is_checkout_template = is_page_template('page-checkout.php');
+        if ($is_focused && !$is_checkout_template) :
             $policy_keys = array(
                 'checkout_page_refund'  => __('Refund Policy', 'dp-starter'),
                 'checkout_page_privacy' => __('Privacy Policy', 'dp-starter'),
