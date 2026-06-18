@@ -183,6 +183,11 @@ function dp_starter_required_pages()
             'template' => '',
             'content'  => '',
         ),
+        'lead-capture' => array(
+            'title'    => __('Get Started', 'dp-starter'),
+            'template' => 'template-lead-capture.php',
+            'content'  => '',
+        ),
         'checkout' => array(
             'title'    => __('Checkout', 'dp-starter'),
             'template' => 'page-checkout.php',
