@@ -503,7 +503,7 @@ add_filter('document_title_parts', 'dp_starter_document_title_parts');
  */
 function dp_starter_checkout_focused_class($classes)
 {
-    if (dp_starter_get_setting('checkout_focused_mode') !== '1') {
+    if (!dp_starter_is_licensed() || dp_starter_get_setting('checkout_focused_mode') !== '1') {
         return $classes;
     }
 

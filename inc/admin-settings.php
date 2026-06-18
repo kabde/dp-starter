@@ -1252,12 +1252,14 @@ function dp_starter_settings_page_render()
                 <div class="dp-admin-section">
                     <h2><?php esc_html_e('Checkout', 'dp-starter'); ?></h2>
                     <table class="form-table">
+                        <?php if ($licensed) : ?>
                         <tr><th scope="row"><?php esc_html_e('Focused Mode', 'dp-starter'); ?></th><td>
                             <label>
                                 <input type="checkbox" name="dp_starter_settings[checkout_focused_mode]" value="1" <?php checked($s['checkout_focused_mode'], '1'); ?>>
                                 <?php esc_html_e('Simplify checkout: hide navigation menu, CTA, social links. Show only logo and policy popups.', 'dp-starter'); ?>
                             </label>
                         </td></tr>
+                        <?php endif; ?>
                         <tr><th scope="row"><?php esc_html_e('Trust Text', 'dp-starter'); ?></th><td>
                             <input type="text" name="dp_starter_settings[checkout_trust_text]" value="<?php echo esc_attr($s['checkout_trust_text']); ?>" class="large-text">
                             <p class="description"><?php esc_html_e('Displayed under the Place Order button to reassure buyers.', 'dp-starter'); ?></p>
