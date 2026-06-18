@@ -1084,6 +1084,7 @@ function dp_starter_settings_page_render()
                             'color_dark_text'      => __('Text', 'dp-starter'),
                             'color_dark_text_soft' => __('Muted Text', 'dp-starter'),
                             'color_dark_link'      => __('Links', 'dp-starter'),
+                            'color_gold_hover'     => __('Accent Hover', 'dp-starter'),
                         );
                         foreach ($dark_colors as $key => $label) : ?>
                             <tr><th scope="row"><?php echo esc_html($label); ?></th><td>
