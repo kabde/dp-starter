@@ -2639,6 +2639,11 @@ a:hover .dp-text-link::after,
   gap: 18px;
 }
 
+.dp-footer-menu li {
+  display: inline-flex;
+  margin: 0;
+}
+
 .dp-footer-menu a {
   color: var(--dp-dark-text-soft);
   font-size: 0.9rem;
