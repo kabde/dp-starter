@@ -965,6 +965,49 @@ function dp_starter_settings_page_render()
                                 'color_dark_text_soft' => '#b8a890', 'color_dark_link' => '#ddb892', 'color_gold_hover' => '#ecd0b0',
                             ),
                         ),
+                        // ── Custom accent palettes ──
+                        'golden_honey' => array(
+                            'name' => 'Golden Honey',
+                            'colors' => array(
+                                'color_bg' => '#fffcf5', 'color_bg_soft' => '#fef8e8', 'color_panel' => '#ffffff',
+                                'color_ink' => '#2a2010', 'color_black' => '#1c1508',
+                                'color_muted' => '#7a6840', 'color_muted_2' => '#a09060',
+                                'color_gold' => '#f8ca50', 'color_gold_strong' => '#e0b030',
+                                'color_bronze' => '#c89820', 'color_danger_soft' => '#fffdf0',
+                                'color_header_bg' => '#1c1508', 'color_header_text' => '#fef8e8',
+                                'color_header_link' => '#fde68a', 'color_header_hover' => '#fef3c7', 'color_header_accent' => '#f8ca50',
+                                'color_dark_bg' => '#120e05', 'color_dark_text' => '#fef8e8',
+                                'color_dark_text_soft' => '#d4c090', 'color_dark_link' => '#fde68a', 'color_gold_hover' => '#fef3c7',
+                            ),
+                        ),
+                        'teal_depth' => array(
+                            'name' => 'Teal Depth',
+                            'colors' => array(
+                                'color_bg' => '#f0fafa', 'color_bg_soft' => '#e4f5f5', 'color_panel' => '#ffffff',
+                                'color_ink' => '#0c2626', 'color_black' => '#081c1c',
+                                'color_muted' => '#3a6868', 'color_muted_2' => '#5a9090',
+                                'color_gold' => '#1d8b8a', 'color_gold_strong' => '#167070',
+                                'color_bronze' => '#105858', 'color_danger_soft' => '#edfafa',
+                                'color_header_bg' => '#081c1c', 'color_header_text' => '#ccf0f0',
+                                'color_header_link' => '#5ec8c8', 'color_header_hover' => '#99e0e0', 'color_header_accent' => '#1d8b8a',
+                                'color_dark_bg' => '#051414', 'color_dark_text' => '#ccf0f0',
+                                'color_dark_text_soft' => '#80b8b8', 'color_dark_link' => '#5ec8c8', 'color_gold_hover' => '#99e0e0',
+                            ),
+                        ),
+                        'ultra_violet' => array(
+                            'name' => 'Ultra Violet',
+                            'colors' => array(
+                                'color_bg' => '#f8f6ff', 'color_bg_soft' => '#eeeaff', 'color_panel' => '#ffffff',
+                                'color_ink' => '#1a1440', 'color_black' => '#100c30',
+                                'color_muted' => '#504880', 'color_muted_2' => '#7870a8',
+                                'color_gold' => '#5339f5', 'color_gold_strong' => '#4028e0',
+                                'color_bronze' => '#3520c8', 'color_danger_soft' => '#f5f2ff',
+                                'color_header_bg' => '#100c30', 'color_header_text' => '#e8e4ff',
+                                'color_header_link' => '#a898ff', 'color_header_hover' => '#c8c0ff', 'color_header_accent' => '#5339f5',
+                                'color_dark_bg' => '#0a0820', 'color_dark_text' => '#e8e4ff',
+                                'color_dark_text_soft' => '#9890c8', 'color_dark_link' => '#a898ff', 'color_gold_hover' => '#c8c0ff',
+                            ),
+                        ),
                     );
 
                     foreach ($palettes as $id => $palette) :
