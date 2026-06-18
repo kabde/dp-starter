@@ -203,18 +203,16 @@ button {
   font-size: 1.25rem;
   font-weight: 400;
   color: var(--dp-header-text, var(--dp-dark-text));
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   white-space: nowrap;
   width: auto;
-  text-transform: lowercase;
+  text-transform: uppercase;
   font-family: var(--dp-font-heading);
 }
 
 .dp-logo-text strong {
   font-weight: 800;
   color: var(--dp-header-accent, var(--dp-gold));
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
 }
 
 .dp-footer-logo.dp-logo-text {
