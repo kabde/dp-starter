@@ -574,6 +574,65 @@ function dp_starter_checkout_focused_class($classes)
 add_filter('body_class', 'dp_starter_checkout_focused_class');
 
 /**
+ * Make main stylesheet non-render-blocking.
+ *
+ * @param string $html Link tag.
+ * @param string $handle Style handle.
+ * @return string
+ */
+function dp_starter_defer_main_css($html, $handle)
+{
+    if ('dp-starter-style' === $handle && !is_admin()) {
+        $html = str_replace("media='all'", "media='print' onload=\"this.media='all'\"", $html);
+        // Add noscript fallback.
+        $html .= '<noscript>' . str_replace(" onload=\"this.media='all'\"", '', str_replace("media='print'", "media='all'", $html)) . '</noscript>';
+    }
+    return $html;
+}
+add_filter('style_loader_tag', 'dp_starter_defer_main_css', 10, 2);
+
+/**
+ * Inline critical CSS for above-the-fold content.
+ */
+function dp_starter_critical_css()
+{
+    if (is_admin()) {
+        return;
+    }
+    ?>
+    <style id="dp-critical-css">
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{-webkit-text-size-adjust:100%}
+    body{font-family:var(--dp-font-body,system-ui,sans-serif);color:var(--dp-ink,#0c1a1d);background:var(--dp-bg,#f0fafb);line-height:1.55}
+    img{max-width:100%;height:auto;display:block}
+    a{color:var(--dp-bronze,#5bb8c4);text-decoration:none}
+    .dp-site{min-height:100vh;display:flex;flex-direction:column}
+    .dp-main{flex:1 0 auto}
+    .dp-shell{width:min(100% - 40px,var(--dp-max,1180px));margin-inline:auto}
+    .dp-site-header{position:sticky;top:0;z-index:50;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px;min-height:72px;padding:12px max(24px,calc((100vw - var(--dp-max,1180px))/2));color:var(--dp-header-text,var(--dp-dark-text,#e8f5f7));border-bottom:2px solid var(--dp-header-accent,var(--dp-gold,#85D1DB));background:var(--dp-header-bg,var(--dp-dark-bg,#050a0b))}
+    .dp-brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+    .dp-brand-logo{width:156px;height:auto;flex:0 0 auto}
+    .dp-logo-text{font-size:1.25rem;font-weight:400;color:var(--dp-header-text,var(--dp-dark-text));letter-spacing:.04em;white-space:nowrap;width:auto;text-transform:uppercase;font-family:var(--dp-font-heading)}
+    .dp-logo-text strong{font-weight:800;color:var(--dp-header-accent,var(--dp-gold))}
+    .dp-menu{display:flex;justify-content:flex-end;gap:28px;padding:0;margin:0;list-style:none}
+    .dp-menu li{display:inline-flex;margin:0}
+    .dp-menu a{display:inline-flex;align-items:center;padding:8px 0;color:var(--dp-header-link,var(--dp-dark-link));font-size:.9rem;font-weight:800;text-decoration:none}
+    .dp-header-cta{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;border:1px solid transparent;border-radius:var(--dp-radius,8px);color:var(--dp-black,#0a1416)!important;background:var(--dp-header-accent,var(--dp-gold));font-weight:800;text-decoration:none;white-space:nowrap}
+    .dp-home-hero{position:relative;overflow:hidden;padding-top:clamp(76px,9vw,132px);min-height:clamp(620px,78vh,760px);display:flex;align-items:center;color:var(--dp-dark-text,#e8f5f7);background:var(--dp-hero-bg,var(--dp-dark-bg,#050a0b))}
+    .dp-home-hero h1{margin-bottom:50px}
+    .dp-section{padding:clamp(64px,8vw,110px) 0}
+    .dp-button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 20px;border:1px solid transparent;border-radius:var(--dp-radius,8px);font-weight:800;text-decoration:none}
+    .dp-button-primary{color:var(--dp-black,#0a1416);background:var(--dp-gold,#85D1DB)}
+    .dp-button-secondary{color:var(--dp-ink,#0c1a1d);border-color:var(--dp-gold,#85D1DB);background:transparent}
+    .dp-menu-toggle{display:none}
+    .screen-reader-text{clip:rect(1px,1px,1px,1px);position:absolute!important;height:1px;width:1px;overflow:hidden}
+    @media(max-width:768px){.dp-site-header{grid-template-columns:1fr auto!important;gap:0!important}.dp-desktop-nav,.dp-header-cta{display:none!important}.dp-menu-toggle{display:grid!important;width:44px;height:44px;place-items:center;border-radius:var(--dp-radius,8px);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18)}.dp-brand-logo{width:120px!important}}
+    </style>
+    <?php
+}
+add_action('wp_head', 'dp_starter_critical_css', 0);
+
+/**
  * Add defer to theme script and optimize resource loading.
  *
  * @param string $tag    Script tag HTML.
