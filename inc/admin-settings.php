@@ -562,12 +562,12 @@ function dp_starter_settings_page_render()
                     <h2><?php esc_html_e('Header & Navigation', 'dp-starter'); ?></h2>
                     <p class="description"><?php esc_html_e('Controls the top bar, logo area, and navigation menu.', 'dp-starter'); ?></p>
                     <div class="dp-color-preview" id="dp-preview-header" style="margin:16px 0;border-radius:6px;overflow:hidden;">
-                        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:<?php echo esc_attr($s['color_dark_bg']); ?>;border-bottom:2px solid <?php echo esc_attr($s['color_gold']); ?>;">
-                            <span style="font-weight:700;color:<?php echo esc_attr($s['color_dark_text']); ?>;font-size:14px;">Logo</span>
-                            <div style="display:flex;gap:16px;">
-                                <span style="color:<?php echo esc_attr($s['color_dark_link']); ?>;font-size:13px;">Menu Item</span>
-                                <span style="color:<?php echo esc_attr($s['color_dark_link']); ?>;font-size:13px;">Menu Item</span>
-                                <span style="background:<?php echo esc_attr($s['color_gold']); ?>;color:<?php echo esc_attr($s['color_black']); ?>;padding:4px 14px;border-radius:<?php echo absint($s['border_radius']); ?>px;font-size:12px;font-weight:700;">CTA</span>
+                        <div data-dp-bg="color_dark_bg" data-dp-border-bottom="color_gold" style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:<?php echo esc_attr($s['color_dark_bg']); ?>;border-bottom:2px solid <?php echo esc_attr($s['color_gold']); ?>;">
+                            <span data-dp-color="color_dark_text" style="font-weight:700;color:<?php echo esc_attr($s['color_dark_text']); ?>;font-size:14px;">Logo</span>
+                            <div style="display:flex;gap:16px;align-items:center;">
+                                <span data-dp-color="color_dark_link" style="color:<?php echo esc_attr($s['color_dark_link']); ?>;font-size:13px;">Menu Item</span>
+                                <span data-dp-color="color_dark_link" style="color:<?php echo esc_attr($s['color_dark_link']); ?>;font-size:13px;">Menu Item</span>
+                                <span data-dp-bg="color_gold" data-dp-color="color_black" data-dp-radius="border_radius" style="background:<?php echo esc_attr($s['color_gold']); ?>;color:<?php echo esc_attr($s['color_black']); ?>;padding:4px 14px;border-radius:<?php echo absint($s['border_radius']); ?>px;font-size:12px;font-weight:700;">CTA</span>
                             </div>
                         </div>
                     </div>
@@ -592,21 +592,21 @@ function dp_starter_settings_page_render()
                 <div class="dp-admin-section">
                     <h2><?php esc_html_e('Content Area', 'dp-starter'); ?></h2>
                     <p class="description"><?php esc_html_e('Controls page backgrounds, text colors, cards, and accent colors for links and buttons.', 'dp-starter'); ?></p>
-                    <div class="dp-color-preview" style="margin:16px 0;border-radius:6px;overflow:hidden;border:1px solid #e5e7eb;">
-                        <div style="background:<?php echo esc_attr($s['color_bg']); ?>;padding:20px;">
-                            <p style="margin:0 0 8px;color:<?php echo esc_attr($s['color_ink']); ?>;font-weight:600;">Heading Text</p>
-                            <p style="margin:0 0 8px;color:<?php echo esc_attr($s['color_muted']); ?>;font-size:13px;">Muted description text with a <span style="color:<?php echo esc_attr($s['color_bronze']); ?>;text-decoration:underline;">link example</span></p>
+                    <div class="dp-color-preview" id="dp-preview-content" style="margin:16px 0;border-radius:6px;overflow:hidden;border:1px solid #e5e7eb;">
+                        <div data-dp-bg="color_bg" style="background:<?php echo esc_attr($s['color_bg']); ?>;padding:20px;">
+                            <p data-dp-color="color_ink" style="margin:0 0 8px;color:<?php echo esc_attr($s['color_ink']); ?>;font-weight:600;">Heading Text</p>
+                            <p data-dp-color="color_muted" style="margin:0 0 8px;color:<?php echo esc_attr($s['color_muted']); ?>;font-size:13px;">Muted description text with a <span data-dp-color="color_bronze" style="color:<?php echo esc_attr($s['color_bronze']); ?>;text-decoration:underline;">link example</span></p>
                             <div style="display:flex;gap:8px;margin-top:12px;">
-                                <div style="flex:1;background:<?php echo esc_attr($s['color_panel']); ?>;padding:12px;border-radius:<?php echo absint($s['border_radius']); ?>px;border:1px solid rgba(0,0,0,0.06);">
-                                    <span style="font-size:12px;color:<?php echo esc_attr($s['color_ink']); ?>;font-weight:600;">Card</span>
+                                <div data-dp-bg="color_panel" data-dp-radius="border_radius" style="flex:1;background:<?php echo esc_attr($s['color_panel']); ?>;padding:12px;border-radius:<?php echo absint($s['border_radius']); ?>px;border:1px solid rgba(0,0,0,0.06);">
+                                    <span data-dp-color="color_ink" style="font-size:12px;color:<?php echo esc_attr($s['color_ink']); ?>;font-weight:600;">Card</span>
                                 </div>
-                                <div style="flex:1;background:<?php echo esc_attr($s['color_bg_soft']); ?>;padding:12px;border-radius:<?php echo absint($s['border_radius']); ?>px;">
-                                    <span style="font-size:12px;color:<?php echo esc_attr($s['color_muted_2']); ?>;">Soft section</span>
+                                <div data-dp-bg="color_bg_soft" data-dp-radius="border_radius" style="flex:1;background:<?php echo esc_attr($s['color_bg_soft']); ?>;padding:12px;border-radius:<?php echo absint($s['border_radius']); ?>px;">
+                                    <span data-dp-color="color_muted_2" style="font-size:12px;color:<?php echo esc_attr($s['color_muted_2']); ?>;">Soft section</span>
                                 </div>
                             </div>
                             <div style="margin-top:12px;">
-                                <span style="display:inline-block;background:<?php echo esc_attr($s['color_gold']); ?>;color:<?php echo esc_attr($s['color_black']); ?>;padding:6px 16px;border-radius:<?php echo absint($s['border_radius']); ?>px;font-size:12px;font-weight:700;">Button</span>
-                                <span style="display:inline-block;border:1px solid <?php echo esc_attr($s['color_gold']); ?>;color:<?php echo esc_attr($s['color_ink']); ?>;padding:6px 16px;border-radius:<?php echo absint($s['border_radius']); ?>px;font-size:12px;font-weight:700;margin-left:8px;">Secondary</span>
+                                <span data-dp-bg="color_gold" data-dp-color="color_black" data-dp-radius="border_radius" style="display:inline-block;background:<?php echo esc_attr($s['color_gold']); ?>;color:<?php echo esc_attr($s['color_black']); ?>;padding:6px 16px;border-radius:<?php echo absint($s['border_radius']); ?>px;font-size:12px;font-weight:700;">Button</span>
+                                <span data-dp-border="color_gold" data-dp-color="color_ink" data-dp-radius="border_radius" style="display:inline-block;border:1px solid <?php echo esc_attr($s['color_gold']); ?>;color:<?php echo esc_attr($s['color_ink']); ?>;padding:6px 16px;border-radius:<?php echo absint($s['border_radius']); ?>px;font-size:12px;font-weight:700;margin-left:8px;">Secondary</span>
                             </div>
                         </div>
                     </div>
@@ -637,11 +637,11 @@ function dp_starter_settings_page_render()
                 <div class="dp-admin-section">
                     <h2><?php esc_html_e('Dark Sections', 'dp-starter'); ?></h2>
                     <p class="description"><?php esc_html_e('Used for hero areas, dark cards, carousel, and feature highlights. Also used by header and footer.', 'dp-starter'); ?></p>
-                    <div class="dp-color-preview" style="margin:16px 0;border-radius:6px;overflow:hidden;">
-                        <div style="background:<?php echo esc_attr($s['color_dark_bg']); ?>;padding:20px;">
-                            <p style="margin:0 0 4px;color:<?php echo esc_attr($s['color_dark_text']); ?>;font-weight:700;font-size:15px;">Dark Section Title</p>
-                            <p style="margin:0 0 12px;color:<?php echo esc_attr($s['color_dark_text_soft']); ?>;font-size:13px;">Supporting text in a dark hero or feature section</p>
-                            <a href="#" style="color:<?php echo esc_attr($s['color_dark_link']); ?>;font-size:13px;text-decoration:none;" onclick="return false;">Link in dark section →</a>
+                    <div class="dp-color-preview" id="dp-preview-dark" style="margin:16px 0;border-radius:6px;overflow:hidden;">
+                        <div data-dp-bg="color_dark_bg" style="background:<?php echo esc_attr($s['color_dark_bg']); ?>;padding:20px;">
+                            <p data-dp-color="color_dark_text" style="margin:0 0 4px;color:<?php echo esc_attr($s['color_dark_text']); ?>;font-weight:700;font-size:15px;">Dark Section Title</p>
+                            <p data-dp-color="color_dark_text_soft" style="margin:0 0 12px;color:<?php echo esc_attr($s['color_dark_text_soft']); ?>;font-size:13px;">Supporting text in a dark hero or feature section</p>
+                            <a href="#" data-dp-color="color_dark_link" style="color:<?php echo esc_attr($s['color_dark_link']); ?>;font-size:13px;text-decoration:none;" onclick="return false;">Link in dark section →</a>
                         </div>
                     </div>
                     <table class="form-table">
@@ -664,16 +664,16 @@ function dp_starter_settings_page_render()
                 <div class="dp-admin-section">
                     <h2><?php esc_html_e('Footer', 'dp-starter'); ?></h2>
                     <p class="description"><?php esc_html_e('The footer inherits Dark Section colors. Customize the accent and social icon appearance here.', 'dp-starter'); ?></p>
-                    <div class="dp-color-preview" style="margin:16px 0;border-radius:6px;overflow:hidden;">
-                        <div style="background:<?php echo esc_attr($s['color_dark_bg']); ?>;padding:16px 20px;border-top:2px solid <?php echo esc_attr($s['color_gold']); ?>;">
+                    <div class="dp-color-preview" id="dp-preview-footer" style="margin:16px 0;border-radius:6px;overflow:hidden;">
+                        <div data-dp-bg="color_dark_bg" data-dp-border-top="color_gold" style="background:<?php echo esc_attr($s['color_dark_bg']); ?>;padding:16px 20px;border-top:2px solid <?php echo esc_attr($s['color_gold']); ?>;">
                             <div style="display:flex;align-items:center;justify-content:space-between;">
                                 <div>
-                                    <span style="color:<?php echo esc_attr($s['color_dark_text']); ?>;font-weight:700;font-size:13px;">Logo</span>
-                                    <p style="margin:4px 0 0;color:<?php echo esc_attr($s['color_dark_text_soft']); ?>;font-size:11px;">Tagline text</p>
+                                    <span data-dp-color="color_dark_text" style="color:<?php echo esc_attr($s['color_dark_text']); ?>;font-weight:700;font-size:13px;">Logo</span>
+                                    <p data-dp-color="color_dark_text_soft" style="margin:4px 0 0;color:<?php echo esc_attr($s['color_dark_text_soft']); ?>;font-size:11px;">Tagline text</p>
                                 </div>
                                 <div style="display:flex;gap:8px;">
-                                    <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:rgba(255,255,255,0.06);border-radius:50%;color:<?php echo esc_attr($s['color_dark_link']); ?>;font-size:11px;">f</span>
-                                    <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:rgba(255,255,255,0.06);border-radius:50%;color:<?php echo esc_attr($s['color_dark_link']); ?>;font-size:11px;">t</span>
+                                    <span data-dp-color="color_dark_link" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:rgba(255,255,255,0.06);border-radius:50%;color:<?php echo esc_attr($s['color_dark_link']); ?>;font-size:11px;">f</span>
+                                    <span data-dp-color="color_dark_link" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:rgba(255,255,255,0.06);border-radius:50%;color:<?php echo esc_attr($s['color_dark_link']); ?>;font-size:11px;">t</span>
                                 </div>
                             </div>
                         </div>
@@ -1554,6 +1554,45 @@ function dp_starter_settings_page_render()
         }
         $('#dp-font-body, #dp-font-heading').on('change', updateFontPreview);
         updateFontPreview();
+
+        /* ── Live color preview ── */
+        function dpGetColor(key) {
+            var $input = $('input[name="dp_starter_settings[' + key + ']"]');
+            return $input.length ? $input.val() : '';
+        }
+
+        function dpUpdatePreviews() {
+            // Update all elements with data-dp-* attributes
+            $('[data-dp-bg]').each(function() {
+                $(this).css('background-color', dpGetColor($(this).data('dp-bg')));
+            });
+            $('[data-dp-color]').each(function() {
+                $(this).css('color', dpGetColor($(this).data('dp-color')));
+            });
+            $('[data-dp-border]').each(function() {
+                $(this).css('border-color', dpGetColor($(this).data('dp-border')));
+            });
+            $('[data-dp-border-bottom]').each(function() {
+                $(this).css('border-bottom-color', dpGetColor($(this).data('dp-border-bottom')));
+            });
+            $('[data-dp-border-top]').each(function() {
+                $(this).css('border-top-color', dpGetColor($(this).data('dp-border-top')));
+            });
+            $('[data-dp-radius]').each(function() {
+                var r = dpGetColor($(this).data('dp-radius'));
+                $(this).css('border-radius', (parseInt(r, 10) || 0) + 'px');
+            });
+        }
+
+        // Hook into wpColorPicker change event
+        $(document).on('input change', '.dp-color-picker, input[name="dp_starter_settings[border_radius]"]', function() {
+            dpUpdatePreviews();
+        });
+
+        // wpColorPicker triggers irischange on the hidden input
+        $(document).on('irischange', '.dp-color-picker', function() {
+            dpUpdatePreviews();
+        });
     });
     </script>
     <?php
