@@ -174,9 +174,9 @@ button {
   gap: 24px;
   min-height: 72px;
   padding: 12px max(24px, calc((100vw - var(--dp-max)) / 2));
-  color: var(--dp-dark-text);
-  border-bottom: 2px solid var(--dp-gold);
-  background: var(--dp-dark-bg);
+  color: var(--dp-header-text, var(--dp-dark-text));
+  border-bottom: 2px solid var(--dp-header-accent, var(--dp-gold));
+  background: var(--dp-header-bg, var(--dp-dark-bg));
 }
 
 .dp-brand {
@@ -241,7 +241,7 @@ button {
 
 .dp-site-header a,
 .dp-site-header a:visited {
-  color: var(--dp-dark-link) !important;
+  color: var(--dp-header-link, var(--dp-dark-link)) !important;
 }
 
 .dp-site-header .dp-header-cta,
@@ -269,7 +269,7 @@ button {
 
 .dp-menu a:hover,
 .dp-site-header .dp-menu a:hover {
-  color: var(--dp-dark-text) !important;
+  color: var(--dp-header-hover, var(--dp-dark-text)) !important;
 }
 
 .dp-menu .current-menu-item > a,
@@ -320,7 +320,7 @@ button {
   border: 1px solid transparent;
   border-radius: var(--dp-radius);
   color: var(--dp-black) !important;
-  background: var(--dp-gold);
+  background: var(--dp-header-accent, var(--dp-gold));
   box-shadow: 0 12px 32px rgba(var(--dp-gold-strong-rgb), 0.18);
   font-weight: 800;
   line-height: 1.1;
@@ -332,7 +332,7 @@ button {
 
 .dp-header-cta:hover {
   color: var(--dp-black) !important;
-  background: var(--dp-gold-hover);
+  background: var(--dp-header-hover, var(--dp-gold-hover));
 }
 
 .dp-mobile-start-link {

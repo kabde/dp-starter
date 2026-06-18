@@ -31,6 +31,12 @@ function dp_starter_settings_defaults()
         'color_gold_strong' => '#B3EBF2',
         'color_bronze'      => '#5bb8c4',
         'color_danger_soft' => '#edf9fb',
+        // Appearance — Header.
+        'color_header_bg'      => '#000000',
+        'color_header_text'    => '#e8f5f7',
+        'color_header_link'    => '#B6F2D1',
+        'color_header_hover'   => '#C9FDF2',
+        'color_header_accent'  => '#85D1DB',
         // Appearance — Dark.
         'color_dark_bg'        => '#050a0b',
         'color_dark_text'      => '#e8f5f7',
@@ -208,6 +214,19 @@ function dp_starter_register_settings()
 }
 add_action('admin_init', 'dp_starter_register_settings');
 
+/**
+ * Allow the settings group to be saved from the top-level menu page.
+ *
+ * @param array $allowed Allowed options.
+ * @return array
+ */
+function dp_starter_allowed_options($allowed)
+{
+    $allowed['dp_starter_settings_group'] = array('dp_starter_settings');
+    return $allowed;
+}
+add_filter('allowed_options', 'dp_starter_allowed_options');
+
 /* =========================================================================
    4. SANITIZE
    ========================================================================= */
@@ -226,6 +245,8 @@ function dp_starter_sanitize_settings($input)
         'color_bg', 'color_bg_soft', 'color_panel', 'color_ink', 'color_black',
         'color_muted', 'color_muted_2', 'color_gold', 'color_gold_strong',
         'color_bronze', 'color_danger_soft',
+        'color_header_bg', 'color_header_text', 'color_header_link',
+        'color_header_hover', 'color_header_accent',
         'color_dark_bg', 'color_dark_text', 'color_dark_text_soft',
         'color_dark_link', 'color_gold_hover',
     );
@@ -572,23 +593,23 @@ function dp_starter_settings_page_render()
                     <h2><?php esc_html_e('Header & Navigation', 'dp-starter'); ?></h2>
                     <p class="description"><?php esc_html_e('Controls the top bar, logo area, and navigation menu.', 'dp-starter'); ?></p>
                     <div class="dp-color-preview" id="dp-preview-header" style="margin:16px 0;border-radius:6px;overflow:hidden;">
-                        <div data-dp-bg="color_dark_bg" data-dp-border-bottom="color_gold" style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:<?php echo esc_attr($s['color_dark_bg']); ?>;border-bottom:2px solid <?php echo esc_attr($s['color_gold']); ?>;">
-                            <span data-dp-color="color_dark_text" style="font-weight:700;color:<?php echo esc_attr($s['color_dark_text']); ?>;font-size:14px;">Logo</span>
+                        <div data-dp-bg="color_header_bg" data-dp-border-bottom="color_header_accent" style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:<?php echo esc_attr($s['color_header_bg']); ?>;border-bottom:2px solid <?php echo esc_attr($s['color_header_accent']); ?>;">
+                            <span data-dp-color="color_header_text" style="font-weight:700;color:<?php echo esc_attr($s['color_header_text']); ?>;font-size:14px;">Logo</span>
                             <div style="display:flex;gap:16px;align-items:center;">
-                                <span data-dp-color="color_dark_link" style="color:<?php echo esc_attr($s['color_dark_link']); ?>;font-size:13px;">Menu Item</span>
-                                <span data-dp-color="color_dark_link" style="color:<?php echo esc_attr($s['color_dark_link']); ?>;font-size:13px;">Menu Item</span>
-                                <span data-dp-bg="color_gold" data-dp-color="color_black" data-dp-radius="border_radius" style="background:<?php echo esc_attr($s['color_gold']); ?>;color:<?php echo esc_attr($s['color_black']); ?>;padding:4px 14px;border-radius:<?php echo absint($s['border_radius']); ?>px;font-size:12px;font-weight:700;">CTA</span>
+                                <span data-dp-color="color_header_link" style="color:<?php echo esc_attr($s['color_header_link']); ?>;font-size:13px;">Menu Item</span>
+                                <span data-dp-color="color_header_link" style="color:<?php echo esc_attr($s['color_header_link']); ?>;font-size:13px;">Menu Item</span>
+                                <span data-dp-bg="color_header_accent" data-dp-color="color_black" data-dp-radius="border_radius" style="background:<?php echo esc_attr($s['color_header_accent']); ?>;color:<?php echo esc_attr($s['color_black']); ?>;padding:4px 14px;border-radius:<?php echo absint($s['border_radius']); ?>px;font-size:12px;font-weight:700;">CTA</span>
                             </div>
                         </div>
                     </div>
                     <table class="form-table">
                         <?php
                         $header_colors = array(
-                            'color_dark_bg'   => __('Background', 'dp-starter'),
-                            'color_dark_text' => __('Text', 'dp-starter'),
-                            'color_dark_link' => __('Menu Links', 'dp-starter'),
-                            'color_gold_hover' => __('Link Hover', 'dp-starter'),
-                            'color_gold'      => __('Accent (border & CTA)', 'dp-starter'),
+                            'color_header_bg'     => __('Background', 'dp-starter'),
+                            'color_header_text'   => __('Text', 'dp-starter'),
+                            'color_header_link'   => __('Menu Links', 'dp-starter'),
+                            'color_header_hover'  => __('Link Hover', 'dp-starter'),
+                            'color_header_accent' => __('Accent (border & CTA)', 'dp-starter'),
                         );
                         foreach ($header_colors as $key => $label) : ?>
                             <tr><th scope="row"><?php echo esc_html($label); ?></th><td>
@@ -1850,6 +1871,12 @@ function dp_starter_dynamic_css()
         '--dp-dark-text-soft' => $s['color_dark_text_soft'],
         '--dp-dark-link'      => $s['color_dark_link'],
         '--dp-gold-hover'     => $s['color_gold_hover'],
+        // Header.
+        '--dp-header-bg'      => $s['color_header_bg'],
+        '--dp-header-text'    => $s['color_header_text'],
+        '--dp-header-link'    => $s['color_header_link'],
+        '--dp-header-hover'   => $s['color_header_hover'],
+        '--dp-header-accent'  => $s['color_header_accent'],
         // RGB versions for opacity variants.
         '--dp-gold-rgb'        => dp_starter_hex_to_rgb($s['color_gold']),
         '--dp-gold-strong-rgb' => dp_starter_hex_to_rgb($s['color_gold_strong']),
