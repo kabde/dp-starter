@@ -347,6 +347,141 @@ function dp_starter_enqueue_assets()
 }
 add_action('wp_enqueue_scripts', 'dp_starter_enqueue_assets');
 
+/* =========================================================================
+   BUILT-IN SEO (auto-disabled when a SEO plugin is active)
+   ========================================================================= */
+
+/**
+ * Check if a SEO plugin is handling meta tags.
+ *
+ * @return bool
+ */
+function dp_starter_has_seo_plugin()
+{
+    return defined('WPSEO_VERSION')              // Yoast SEO
+        || defined('RANK_MATH_VERSION')          // Rank Math
+        || defined('AIOSEO_VERSION')             // All in One SEO
+        || class_exists('The_SEO_Framework\\Load'); // SEO Framework
+}
+
+/**
+ * Output basic SEO meta tags if no SEO plugin is active.
+ */
+function dp_starter_seo_meta()
+{
+    if (dp_starter_has_seo_plugin()) {
+        return;
+    }
+
+    // Meta description.
+    $description = '';
+    if (is_front_page() || is_home()) {
+        $description = get_bloginfo('description');
+    } elseif (is_singular()) {
+        $post = get_queried_object();
+        if ($post && has_excerpt($post->ID)) {
+            $description = get_the_excerpt($post->ID);
+        } elseif ($post) {
+            $description = wp_trim_words(wp_strip_all_tags($post->post_content), 30, '...');
+        }
+    } elseif (is_category() || is_tag() || is_tax()) {
+        $description = term_description();
+    }
+    $description = wp_strip_all_tags(trim($description));
+    if ($description) {
+        echo '<meta name="description" content="' . esc_attr($description) . '">' . "\n";
+    }
+
+    // Canonical URL.
+    if (is_singular()) {
+        echo '<link rel="canonical" href="' . esc_url(get_permalink()) . '">' . "\n";
+    } elseif (is_front_page()) {
+        echo '<link rel="canonical" href="' . esc_url(home_url('/')) . '">' . "\n";
+    }
+
+    // Open Graph basic tags.
+    $og_title = is_singular() ? get_the_title() : get_bloginfo('name');
+    $og_url   = is_singular() ? get_permalink() : home_url('/');
+    $og_type  = is_singular() ? 'article' : 'website';
+    $og_image = '';
+
+    if (is_singular() && has_post_thumbnail()) {
+        $og_image = get_the_post_thumbnail_url(get_queried_object_id(), 'large');
+    }
+
+    echo '<meta property="og:title" content="' . esc_attr($og_title) . '">' . "\n";
+    echo '<meta property="og:type" content="' . esc_attr($og_type) . '">' . "\n";
+    echo '<meta property="og:url" content="' . esc_url($og_url) . '">' . "\n";
+    if ($description) {
+        echo '<meta property="og:description" content="' . esc_attr($description) . '">' . "\n";
+    }
+    if ($og_image) {
+        echo '<meta property="og:image" content="' . esc_url($og_image) . '">' . "\n";
+    }
+    echo '<meta property="og:site_name" content="' . esc_attr(get_bloginfo('name')) . '">' . "\n";
+
+    // Twitter Card.
+    echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
+}
+add_action('wp_head', 'dp_starter_seo_meta', 1);
+
+/**
+ * Output JSON-LD structured data for the site.
+ */
+function dp_starter_schema_jsonld()
+{
+    if (dp_starter_has_seo_plugin()) {
+        return;
+    }
+
+    $schema = array(
+        '@context' => 'https://schema.org',
+        '@type'    => 'WebSite',
+        'name'     => get_bloginfo('name'),
+        'url'      => home_url('/'),
+    );
+
+    if (is_singular()) {
+        $post = get_queried_object();
+        $schema = array(
+            '@context'      => 'https://schema.org',
+            '@type'         => 'Article',
+            'headline'      => get_the_title(),
+            'url'           => get_permalink(),
+            'datePublished' => get_the_date('c'),
+            'dateModified'  => get_the_modified_date('c'),
+            'author'        => array(
+                '@type' => 'Person',
+                'name'  => get_the_author(),
+            ),
+        );
+        if (has_post_thumbnail()) {
+            $schema['image'] = get_the_post_thumbnail_url($post->ID, 'large');
+        }
+    }
+
+    echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_SLASHES) . '</script>' . "\n";
+}
+add_action('wp_head', 'dp_starter_schema_jsonld', 2);
+
+/**
+ * Improve document title with site name.
+ *
+ * @param array $title Title parts.
+ * @return array
+ */
+function dp_starter_document_title_parts($title)
+{
+    if (dp_starter_has_seo_plugin()) {
+        return $title;
+    }
+    if (!isset($title['site'])) {
+        $title['site'] = get_bloginfo('name');
+    }
+    return $title;
+}
+add_filter('document_title_parts', 'dp_starter_document_title_parts');
+
 /**
  * Add defer to theme script and optimize resource loading.
  *
