@@ -2561,6 +2561,42 @@ a:hover .dp-text-link::after,
   text-decoration: none;
 }
 
+/* Pre-footer navigation band */
+.dp-prefooter {
+  padding: 28px 0;
+  background: var(--dp-bg-soft);
+  border-top: 1px solid var(--dp-line);
+}
+
+.dp-prefooter .dp-shell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.dp-prefooter-menu {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dp-prefooter-menu a {
+  color: var(--dp-ink);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 160ms;
+}
+
+.dp-prefooter-menu a:hover {
+  color: var(--dp-gold);
+}
+
 .dp-site-footer {
   padding: 34px 0;
   border-top: 2px solid var(--dp-gold);
@@ -3493,7 +3529,7 @@ ul.products::after {
   justify-items: center;
 }
 
-.dp-checkout-mode .dp-footer-nav,
+.dp-checkout-mode .dp-prefooter,
 .dp-checkout-mode .dp-footer-cta,
 .dp-checkout-mode .dp-footer-social,
 .dp-checkout-mode .dp-footer-brand p {
