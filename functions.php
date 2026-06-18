@@ -349,7 +349,7 @@ if (!function_exists('dp_starter_setup')) {
 
         add_image_size('dp-starter-card', 720, 420, true);
         add_image_size('dp-starter-hero', 1440, 0, false);
-        add_image_size('dp-starter-square', 640, 640, true);
+        add_image_size('dp-starter-square', 336, 336, true);
 
         register_nav_menus(
             array(
