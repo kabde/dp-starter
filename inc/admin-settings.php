@@ -1376,7 +1376,16 @@ function dp_starter_settings_page_render()
 
             // Init color pickers on first show (avoids width:0 bug).
             if (!colorPickersInitialized[id]) {
-                $panel.find('.dp-color-picker').wpColorPicker();
+                $panel.find('.dp-color-picker').wpColorPicker({
+                    change: function(event, ui) {
+                        // Update the input value immediately so previews can read it.
+                        $(this).val(ui.color.toString());
+                        dpUpdatePreviews();
+                    },
+                    clear: function() {
+                        dpUpdatePreviews();
+                    }
+                });
                 colorPickersInitialized[id] = true;
             }
 
