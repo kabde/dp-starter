@@ -304,8 +304,9 @@ if (!function_exists('dp_starter_setup')) {
 
         register_nav_menus(
             array(
-                'primary' => __('Primary Menu', 'dp-starter'),
-                'footer'  => __('Footer Menu', 'dp-starter'),
+                'primary'  => __('Header Menu (top navigation)', 'dp-starter'),
+                'prefooter' => __('Pre-Footer Menu (above footer)', 'dp-starter'),
+                'legal'    => __('Legal Menu (footer bottom)', 'dp-starter'),
             )
         );
     }

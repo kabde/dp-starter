@@ -36,24 +36,18 @@ foreach ($social_map as $key => $data) {
     <!-- Pre-footer navigation band -->
     <div class="dp-prefooter">
         <div class="dp-shell">
-            <nav class="dp-prefooter-nav" aria-label="<?php esc_attr_e('Footer navigation', 'dp-starter'); ?>">
+            <nav class="dp-prefooter-nav" aria-label="<?php esc_attr_e('Pre-footer navigation', 'dp-starter'); ?>">
                 <?php
-                if ($footer_menu_setting > 0) {
+                if (has_nav_menu('prefooter')) {
+                    // Use dedicated pre-footer menu location.
                     wp_nav_menu(array(
-                        'menu'       => $footer_menu_setting,
-                        'container'  => false,
-                        'menu_class' => 'dp-prefooter-menu',
-                        'depth'      => 1,
-                        'fallback_cb' => false,
-                    ));
-                } elseif (has_nav_menu('footer')) {
-                    wp_nav_menu(array(
-                        'theme_location' => 'footer',
+                        'theme_location' => 'prefooter',
                         'container'      => false,
                         'menu_class'     => 'dp-prefooter-menu',
                         'depth'          => 1,
                     ));
                 } elseif (has_nav_menu('primary')) {
+                    // Fallback: reuse primary menu.
                     wp_nav_menu(array(
                         'theme_location' => 'primary',
                         'container'      => false,
@@ -61,6 +55,7 @@ foreach ($social_map as $key => $data) {
                         'depth'          => 1,
                     ));
                 } else {
+                    // Fallback: auto-generated from pages.
                     $nav_slugs = array('start-here', 'blog', 'books', 'tools');
                     $nav_links = array();
                     foreach ($nav_slugs as $slug) {
@@ -108,16 +103,27 @@ foreach ($social_map as $key => $data) {
             <!-- Legal links -->
             <nav class="dp-footer-nav" aria-label="<?php esc_attr_e('Legal', 'dp-starter'); ?>">
                 <?php
-                $legal_slugs = array('privacy-policy', 'terms-and-conditions', 'refund-policy', 'contact');
-                $legal_links = array();
-                foreach ($legal_slugs as $slug) {
-                    $page = get_page_by_path($slug);
-                    if ($page) {
-                        $legal_links[] = '<li><a href="' . esc_url(get_permalink($page)) . '">' . esc_html($page->post_title) . '</a></li>';
+                if (has_nav_menu('legal')) {
+                    // Use dedicated legal menu location.
+                    wp_nav_menu(array(
+                        'theme_location' => 'legal',
+                        'container'      => false,
+                        'menu_class'     => 'dp-footer-menu',
+                        'depth'          => 1,
+                    ));
+                } else {
+                    // Fallback: auto-detect legal pages by slug.
+                    $legal_slugs = array('privacy-policy', 'terms-and-conditions', 'refund-policy', 'contact');
+                    $legal_links = array();
+                    foreach ($legal_slugs as $slug) {
+                        $page = get_page_by_path($slug);
+                        if ($page) {
+                            $legal_links[] = '<li><a href="' . esc_url(get_permalink($page)) . '">' . esc_html($page->post_title) . '</a></li>';
+                        }
                     }
-                }
-                if (!empty($legal_links)) {
-                    echo '<ul class="dp-footer-menu">' . implode('', $legal_links) . '</ul>';
+                    if (!empty($legal_links)) {
+                        echo '<ul class="dp-footer-menu">' . implode('', $legal_links) . '</ul>';
+                    }
                 }
                 ?>
             </nav>
