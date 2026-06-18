@@ -768,7 +768,7 @@ function dp_starter_settings_page_render()
                             <input type="text" name="dp_starter_settings[cta_text]" value="<?php echo esc_attr($s['cta_text']); ?>" class="regular-text">
                         </td></tr>
                         <tr><th scope="row"><?php esc_html_e('Button URL', 'dp-starter'); ?></th><td>
-                            <input type="url" name="dp_starter_settings[cta_url]" value="<?php echo esc_attr($s['cta_url']); ?>" class="regular-text">
+                            <input type="text" name="dp_starter_settings[cta_url]" value="<?php echo esc_attr($s['cta_url']); ?>" class="regular-text">
                         </td></tr>
                     </table>
                 </div>
@@ -845,7 +845,7 @@ function dp_starter_settings_page_render()
                         );
                         foreach ($socials as $key => $label) : ?>
                             <tr><th scope="row"><?php echo esc_html($label); ?></th><td>
-                                <input type="url" name="dp_starter_settings[<?php echo esc_attr($key); ?>]" value="<?php echo esc_attr($s[$key]); ?>" class="regular-text" placeholder="https://">
+                                <input type="text" name="dp_starter_settings[<?php echo esc_attr($key); ?>]" value="<?php echo esc_attr($s[$key]); ?>" class="regular-text" placeholder="https://">
                             </td></tr>
                         <?php endforeach; ?>
                     </table>
@@ -908,11 +908,11 @@ function dp_starter_settings_page_render()
                         </td></tr>
                         <tr><th scope="row"><?php esc_html_e('Primary CTA', 'dp-starter'); ?></th><td>
                             <input type="text" name="dp_starter_settings[home_hero_cta_primary_text]" value="<?php echo esc_attr($s['home_hero_cta_primary_text']); ?>" style="width:200px" placeholder="Text">
-                            <input type="url" name="dp_starter_settings[home_hero_cta_primary_url]" value="<?php echo esc_attr($s['home_hero_cta_primary_url']); ?>" style="width:300px" placeholder="URL">
+                            <input type="text" name="dp_starter_settings[home_hero_cta_primary_url]" value="<?php echo esc_attr($s['home_hero_cta_primary_url']); ?>" style="width:300px" placeholder="URL">
                         </td></tr>
                         <tr><th scope="row"><?php esc_html_e('Secondary CTA', 'dp-starter'); ?></th><td>
                             <input type="text" name="dp_starter_settings[home_hero_cta_secondary_text]" value="<?php echo esc_attr($s['home_hero_cta_secondary_text']); ?>" style="width:200px" placeholder="Text">
-                            <input type="url" name="dp_starter_settings[home_hero_cta_secondary_url]" value="<?php echo esc_attr($s['home_hero_cta_secondary_url']); ?>" style="width:300px" placeholder="URL">
+                            <input type="text" name="dp_starter_settings[home_hero_cta_secondary_url]" value="<?php echo esc_attr($s['home_hero_cta_secondary_url']); ?>" style="width:300px" placeholder="URL">
                         </td></tr>
                         <tr><th scope="row"><?php esc_html_e('Proof points', 'dp-starter'); ?></th><td>
                             <textarea name="dp_starter_settings[home_hero_proof]" rows="3" class="large-text" placeholder="One per line"><?php echo esc_textarea($s['home_hero_proof']); ?></textarea>
@@ -983,7 +983,7 @@ function dp_starter_settings_page_render()
                         </td></tr>
                         <tr><th scope="row"><?php esc_html_e('Link', 'dp-starter'); ?></th><td>
                             <input type="text" name="dp_starter_settings[home_featured_link_text]" value="<?php echo esc_attr($s['home_featured_link_text']); ?>" style="width:200px" placeholder="Text">
-                            <input type="url" name="dp_starter_settings[home_featured_link_url]" value="<?php echo esc_attr($s['home_featured_link_url']); ?>" style="width:300px" placeholder="URL">
+                            <input type="text" name="dp_starter_settings[home_featured_link_url]" value="<?php echo esc_attr($s['home_featured_link_url']); ?>" style="width:300px" placeholder="URL">
                         </td></tr>
                         <tr><th scope="row"><?php esc_html_e('Number of posts', 'dp-starter'); ?></th><td>
                             <input type="number" name="dp_starter_settings[home_featured_count]" value="<?php echo esc_attr($s['home_featured_count']); ?>" min="1" max="12" class="small-text">
@@ -1006,7 +1006,7 @@ function dp_starter_settings_page_render()
                         </td></tr>
                         <tr><th scope="row"><?php esc_html_e('Link', 'dp-starter'); ?></th><td>
                             <input type="text" name="dp_starter_settings[home_books_link_text]" value="<?php echo esc_attr($s['home_books_link_text']); ?>" style="width:200px" placeholder="Text">
-                            <input type="url" name="dp_starter_settings[home_books_link_url]" value="<?php echo esc_attr($s['home_books_link_url']); ?>" style="width:300px" placeholder="URL">
+                            <input type="text" name="dp_starter_settings[home_books_link_url]" value="<?php echo esc_attr($s['home_books_link_url']); ?>" style="width:300px" placeholder="URL">
                         </td></tr>
                         <tr><th scope="row"><?php esc_html_e('Number of books', 'dp-starter'); ?></th><td>
                             <input type="number" name="dp_starter_settings[home_books_count]" value="<?php echo esc_attr($s['home_books_count']); ?>" min="1" max="24" class="small-text">
@@ -1117,7 +1117,7 @@ function dp_starter_settings_page_render()
                         </td></tr>
                         <tr><th scope="row"><?php esc_html_e('Link', 'dp-starter'); ?></th><td>
                             <input type="text" name="dp_starter_settings[home_latest_link_text]" value="<?php echo esc_attr($s['home_latest_link_text']); ?>" style="width:200px" placeholder="Text">
-                            <input type="url" name="dp_starter_settings[home_latest_link_url]" value="<?php echo esc_attr($s['home_latest_link_url']); ?>" style="width:300px" placeholder="URL">
+                            <input type="text" name="dp_starter_settings[home_latest_link_url]" value="<?php echo esc_attr($s['home_latest_link_url']); ?>" style="width:300px" placeholder="URL">
                         </td></tr>
                         <tr><th scope="row"><?php esc_html_e('Number of posts', 'dp-starter'); ?></th><td>
                             <input type="number" name="dp_starter_settings[home_latest_count]" value="<?php echo esc_attr($s['home_latest_count']); ?>" min="1" max="12" class="small-text">
@@ -1143,7 +1143,7 @@ function dp_starter_settings_page_render()
                         </td></tr>
                         <tr><th scope="row"><?php esc_html_e('CTA', 'dp-starter'); ?></th><td>
                             <input type="text" name="dp_starter_settings[home_newsletter_cta_text]" value="<?php echo esc_attr($s['home_newsletter_cta_text']); ?>" style="width:200px" placeholder="Text">
-                            <input type="url" name="dp_starter_settings[home_newsletter_cta_url]" value="<?php echo esc_attr($s['home_newsletter_cta_url']); ?>" style="width:300px" placeholder="URL">
+                            <input type="text" name="dp_starter_settings[home_newsletter_cta_url]" value="<?php echo esc_attr($s['home_newsletter_cta_url']); ?>" style="width:300px" placeholder="URL">
                         </td></tr>
                     </table>
                 </div>
@@ -1166,7 +1166,7 @@ function dp_starter_settings_page_render()
                         </td></tr>
                         <tr><th scope="row"><?php esc_html_e('CTA', 'dp-starter'); ?></th><td>
                             <input type="text" name="dp_starter_settings[home_final_cta_text]" value="<?php echo esc_attr($s['home_final_cta_text']); ?>" style="width:200px" placeholder="Text">
-                            <input type="url" name="dp_starter_settings[home_final_cta_url]" value="<?php echo esc_attr($s['home_final_cta_url']); ?>" style="width:300px" placeholder="URL">
+                            <input type="text" name="dp_starter_settings[home_final_cta_url]" value="<?php echo esc_attr($s['home_final_cta_url']); ?>" style="width:300px" placeholder="URL">
                         </td></tr>
                         <tr><th scope="row"><?php esc_html_e('Image', 'dp-starter'); ?></th><td>
                             <?php $final_img_url = $s['home_final_image_id'] ? wp_get_attachment_image_url($s['home_final_image_id'], 'medium') : ''; ?>
