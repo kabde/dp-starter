@@ -511,8 +511,11 @@ function dp_starter_checkout_focused_class($classes)
         $classes[] = 'dp-checkout-mode';
     }
 
-    // Also apply on WooCommerce checkout if available.
+    // Also apply on WooCommerce cart and checkout if available.
     if (function_exists('is_checkout') && is_checkout()) {
+        $classes[] = 'dp-checkout-mode';
+    }
+    if (function_exists('is_cart') && is_cart()) {
         $classes[] = 'dp-checkout-mode';
     }
 
