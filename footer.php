@@ -102,10 +102,9 @@ foreach ($social_map as $key => $data) {
 
         <?php
         // In focused checkout mode, show policy links as popups in footer.
-        // Skip on checkout page (template or WooCommerce) which has its own policy section.
+        // In focused mode (cart, checkout, lead capture), show policy popup links.
         $is_focused = in_array('dp-checkout-mode', get_body_class(), true);
-        $is_checkout_page = is_page_template('page-checkout.php') || (function_exists('is_checkout') && is_checkout());
-        if ($is_focused && !$is_checkout_page) :
+        if ($is_focused) :
             $policy_keys = array(
                 'checkout_page_refund'  => __('Refund Policy', 'dp-starter'),
                 'checkout_page_privacy' => __('Privacy Policy', 'dp-starter'),
