@@ -653,6 +653,7 @@ function dp_starter_settings_page_render()
             <div class="dp-tab-content" id="tab-appearance">
 
                 <!-- Color Palettes -->
+                <?php if ($licensed) : ?>
                 <div class="dp-admin-section">
                     <h2><?php esc_html_e('Color Palettes', 'dp-starter'); ?></h2>
                     <p class="description"><?php esc_html_e('Click a palette to apply it instantly. You can fine-tune individual colors below.', 'dp-starter'); ?></p>
@@ -1064,6 +1065,7 @@ function dp_starter_settings_page_render()
                     var dpPalettes = <?php echo wp_json_encode(array_map(function($p) { return $p['colors']; }, $palettes)); ?>;
                     </script>
                 </div>
+                <?php endif; ?>
 
                 <!-- Header & Navigation -->
                 <div class="dp-admin-section">
