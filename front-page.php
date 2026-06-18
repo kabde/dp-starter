@@ -225,7 +225,7 @@ if ($hero_text_color) {
                         <?php if (has_post_thumbnail()) : ?>
                             <?php the_post_thumbnail('dp-starter-square'); ?>
                         <?php elseif ($cover_url) : ?>
-                            <img src="<?php echo esc_url($cover_url); ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
+                            <img src="<?php echo esc_url($cover_url); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" width="168" height="252" loading="lazy">
                         <?php else : ?>
                             <div class="dp-book-cover-placeholder"><span><?php esc_html_e('Book', 'dp-starter'); ?></span></div>
                         <?php endif; ?>
@@ -250,7 +250,7 @@ if ($hero_text_color) {
                         <?php if (has_post_thumbnail()) : ?>
                             <?php the_post_thumbnail('dp-starter-square'); ?>
                         <?php elseif ($cover_url) : ?>
-                            <img src="<?php echo esc_url($cover_url); ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
+                            <img src="<?php echo esc_url($cover_url); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" width="168" height="252" loading="lazy">
                         <?php else : ?>
                             <div class="dp-book-cover-placeholder"><span><?php esc_html_e('Book', 'dp-starter'); ?></span></div>
                         <?php endif; ?>
@@ -402,7 +402,7 @@ if ($hero_text_color) {
         $final_image_url = wp_get_attachment_image_url((int) $final_image_id, 'large');
     }
     if (!$final_image_url) {
-        $final_image_url = dp_starter_asset_image('cta-footer.png');
+        $final_image_url = dp_starter_asset_image('cta-footer.jpg');
     }
 ?>
 <section class="dp-final-cta" aria-labelledby="dp-final-title">
@@ -417,7 +417,7 @@ if ($hero_text_color) {
                 <?php echo esc_html(dp_starter_get_setting('home_final_cta_text')); ?>
             </a>
         </div>
-        <img src="<?php echo esc_url($final_image_url); ?>" alt="<?php esc_attr_e('DP Starter resource library preview.', 'dp-starter'); ?>">
+        <img src="<?php echo esc_url($final_image_url); ?>" alt="<?php esc_attr_e('DP Starter resource library preview.', 'dp-starter'); ?>" width="480" height="360" loading="lazy">
     </div>
 </section>
 <?php endif; ?>

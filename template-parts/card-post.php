@@ -20,7 +20,7 @@ $show_thumb = !isset($args['show_thumbnail']) || (bool) $args['show_thumbnail'];
                 <?php if (has_post_thumbnail()) : ?>
                     <?php the_post_thumbnail('dp-starter-card'); ?>
                 <?php else : ?>
-                    <img src="<?php echo esc_url(dp_starter_asset_image('how-it-works.png')); ?>" alt="<?php esc_attr_e('DP Starter guide preview.', 'dp-starter'); ?>">
+                    <img src="<?php echo esc_url(dp_starter_asset_image('how-it-works.jpg')); ?>" alt="<?php esc_attr_e('DP Starter guide preview.', 'dp-starter'); ?>">
                 <?php endif; ?>
             </div>
         <?php endif; ?>

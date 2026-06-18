@@ -64,7 +64,7 @@ $siblings         = get_categories(
                         <?php if (has_post_thumbnail()) : ?>
                             <?php the_post_thumbnail('dp-starter-hero'); ?>
                         <?php else : ?>
-                            <img src="<?php echo esc_url(dp_starter_asset_image('what-is-included.png')); ?>" alt="<?php esc_attr_e('DP Starter category guide preview.', 'dp-starter'); ?>">
+                            <img src="<?php echo esc_url(dp_starter_asset_image('what-is-included.jpg')); ?>" alt="<?php esc_attr_e('DP Starter category guide preview.', 'dp-starter'); ?>">
                         <?php endif; ?>
                     </div>
                     <div class="dp-featured-post-copy">

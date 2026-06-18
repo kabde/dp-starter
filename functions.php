@@ -348,6 +348,22 @@ function dp_starter_enqueue_assets()
 add_action('wp_enqueue_scripts', 'dp_starter_enqueue_assets');
 
 /**
+ * Add defer to theme script and optimize resource loading.
+ *
+ * @param string $tag    Script tag HTML.
+ * @param string $handle Script handle.
+ * @return string
+ */
+function dp_starter_defer_scripts($tag, $handle)
+{
+    if ('dp-starter-theme' === $handle) {
+        $tag = str_replace(' src=', ' defer src=', $tag);
+    }
+    return $tag;
+}
+add_filter('script_loader_tag', 'dp_starter_defer_scripts', 10, 2);
+
+/**
  * Enqueue editor styles.
  */
 function dp_starter_editor_styles()

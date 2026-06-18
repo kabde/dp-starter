@@ -2332,6 +2332,32 @@ function dp_starter_enqueue_google_fonts()
 }
 add_action('wp_enqueue_scripts', 'dp_starter_enqueue_google_fonts', 5);
 
+/**
+ * Preconnect to Google Fonts for faster loading.
+ */
+function dp_starter_preconnect_fonts()
+{
+    echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
+    echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
+}
+add_action('wp_head', 'dp_starter_preconnect_fonts', 1);
+
+/**
+ * Make Google Fonts non-render-blocking by adding media="print" swap trick.
+ *
+ * @param string $html Link tag HTML.
+ * @param string $handle Style handle.
+ * @return string
+ */
+function dp_starter_defer_google_fonts($html, $handle)
+{
+    if ('dp-starter-google-fonts' === $handle) {
+        $html = str_replace("media='all'", "media='print' onload=\"this.media='all'\"", $html);
+    }
+    return $html;
+}
+add_filter('style_loader_tag', 'dp_starter_defer_google_fonts', 10, 2);
+
 /* =========================================================================
    8. DYNAMIC CSS OUTPUT
    ========================================================================= */
