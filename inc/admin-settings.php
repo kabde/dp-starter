@@ -1008,6 +1008,34 @@ function dp_starter_settings_page_render()
                                 'color_dark_text_soft' => '#9890c8', 'color_dark_link' => '#a898ff', 'color_gold_hover' => '#c8c0ff',
                             ),
                         ),
+                        'citrus_flash' => array(
+                            'name' => 'Citrus Flash',
+                            'colors' => array(
+                                'color_bg' => '#fdfef5', 'color_bg_soft' => '#fafce8', 'color_panel' => '#ffffff',
+                                'color_ink' => '#2a2c10', 'color_black' => '#1c1e08',
+                                'color_muted' => '#6a6d38', 'color_muted_2' => '#909450',
+                                'color_gold' => '#c8cc30', 'color_gold_strong' => '#b0b418',
+                                'color_bronze' => '#989c10', 'color_danger_soft' => '#fefff0',
+                                'color_header_bg' => '#1c1e08', 'color_header_text' => '#fafce8',
+                                'color_header_link' => '#e4e95b', 'color_header_hover' => '#eef298', 'color_header_accent' => '#e4e95b',
+                                'color_dark_bg' => '#141505', 'color_dark_text' => '#fafce8',
+                                'color_dark_text_soft' => '#c0c480', 'color_dark_link' => '#e4e95b', 'color_gold_hover' => '#eef298',
+                            ),
+                        ),
+                        'mint_fresh' => array(
+                            'name' => 'Mint Fresh',
+                            'colors' => array(
+                                'color_bg' => '#f5fef8', 'color_bg_soft' => '#e8fcef', 'color_panel' => '#ffffff',
+                                'color_ink' => '#0c2a16', 'color_black' => '#081e10',
+                                'color_muted' => '#387050', 'color_muted_2' => '#509870',
+                                'color_gold' => '#40d878', 'color_gold_strong' => '#28c060',
+                                'color_bronze' => '#20a850', 'color_danger_soft' => '#f0fef5',
+                                'color_header_bg' => '#081e10', 'color_header_text' => '#dcfce8',
+                                'color_header_link' => '#77f3a7', 'color_header_hover' => '#a8f8c8', 'color_header_accent' => '#40d878',
+                                'color_dark_bg' => '#051408', 'color_dark_text' => '#dcfce8',
+                                'color_dark_text_soft' => '#80c8a0', 'color_dark_link' => '#77f3a7', 'color_gold_hover' => '#a8f8c8',
+                            ),
+                        ),
                     );
 
                     foreach ($palettes as $id => $palette) :
