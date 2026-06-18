@@ -36,9 +36,27 @@ $latest_query = new WP_Query(
 );
 
 $hero_proof_lines = array_filter(array_map('trim', explode("\n", dp_starter_get_setting('home_hero_proof'))));
+
+// Hero appearance.
+$hero_bg_color   = dp_starter_get_setting('home_hero_bg_color');
+$hero_bg_image   = dp_starter_get_setting('home_hero_bg_image_id') ? wp_get_attachment_image_url((int) dp_starter_get_setting('home_hero_bg_image_id'), 'full') : '';
+$hero_overlay    = dp_starter_get_setting('home_hero_overlay') ?: '0.7';
+$hero_text_color = dp_starter_get_setting('home_hero_text_color');
+
+$hero_style = '';
+if ($hero_bg_color) {
+    $hero_style .= '--dp-hero-bg:' . esc_attr($hero_bg_color) . ';';
+}
+if ($hero_bg_image) {
+    $hero_style .= '--dp-hero-image:url(' . esc_url($hero_bg_image) . ');';
+    $hero_style .= '--dp-hero-overlay:' . esc_attr($hero_overlay) . ';';
+}
+if ($hero_text_color) {
+    $hero_style .= 'color:' . esc_attr($hero_text_color) . ';';
+}
 ?>
 
-<section class="dp-home-hero dp-section" aria-labelledby="dp-home-title">
+<section class="dp-home-hero dp-section" aria-labelledby="dp-home-title"<?php echo $hero_style ? ' style="' . $hero_style . '"' : ''; ?>>
     <div class="dp-shell dp-home-hero-grid">
         <div class="dp-home-hero-copy">
             <p class="dp-kicker"><?php echo esc_html(dp_starter_get_setting('home_hero_kicker')); ?></p>

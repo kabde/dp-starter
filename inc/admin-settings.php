@@ -79,6 +79,10 @@ function dp_starter_settings_defaults()
         'cpt_tools_label_singular' => 'Tool',
         'cpt_tools_slug'           => 'tools',
         // Home Page — Hero.
+        'home_hero_bg_color'           => '',
+        'home_hero_bg_image_id'        => 0,
+        'home_hero_overlay'            => '0.7',
+        'home_hero_text_color'         => '',
         'home_hero_kicker'             => 'For digital product creators who ship',
         'home_hero_title'              => 'Build Digital Products That Sell — Without the Guesswork',
         'home_hero_description'        => 'Practical guides, launch strategies, tool reviews, and direct advice for creators who want to build, price, and sell digital products with clarity and confidence.',
@@ -339,6 +343,12 @@ function dp_starter_sanitize_settings($input)
 
     // Home Page — media.
     $clean['home_final_image_id'] = isset($input['home_final_image_id']) ? absint($input['home_final_image_id']) : 0;
+
+    // Home Page — Hero appearance.
+    $clean['home_hero_bg_color']    = isset($input['home_hero_bg_color']) && $input['home_hero_bg_color'] ? sanitize_hex_color($input['home_hero_bg_color']) : '';
+    $clean['home_hero_bg_image_id'] = isset($input['home_hero_bg_image_id']) ? absint($input['home_hero_bg_image_id']) : 0;
+    $clean['home_hero_overlay']     = isset($input['home_hero_overlay']) ? max(0, min(1, floatval($input['home_hero_overlay']))) : 0.7;
+    $clean['home_hero_text_color']  = isset($input['home_hero_text_color']) && $input['home_hero_text_color'] ? sanitize_hex_color($input['home_hero_text_color']) : '';
 
     // Integrations.
     $clean['fluentcrm_list_id']         = isset($input['fluentcrm_list_id']) ? absint($input['fluentcrm_list_id']) : 1;
@@ -826,7 +836,46 @@ function dp_starter_settings_page_render()
                 <!-- Hero -->
                 <div class="dp-admin-section">
                     <h2><?php esc_html_e('Hero', 'dp-starter'); ?></h2>
+                    <?php
+                    $hero_bg_color = $s['home_hero_bg_color'] ?: $s['color_dark_bg'];
+                    $hero_text_color = $s['home_hero_text_color'] ?: $s['color_dark_text'];
+                    $hero_bg_image_url = $s['home_hero_bg_image_id'] ? wp_get_attachment_image_url($s['home_hero_bg_image_id'], 'large') : '';
+                    ?>
+                    <div class="dp-color-preview" id="dp-preview-hero" style="margin:16px 0;border-radius:6px;overflow:hidden;">
+                        <div data-dp-bg="home_hero_bg_color" style="background:<?php echo esc_attr($hero_bg_color); ?>;<?php echo $hero_bg_image_url ? 'background-image:url(' . esc_url($hero_bg_image_url) . ');background-size:cover;background-position:center;' : ''; ?>padding:32px 24px;position:relative;">
+                            <?php if ($hero_bg_image_url) : ?>
+                                <div style="position:absolute;inset:0;background:rgba(0,0,0,<?php echo esc_attr($s['home_hero_overlay']); ?>);"></div>
+                            <?php endif; ?>
+                            <div style="position:relative;z-index:1;">
+                                <p style="margin:0 0 4px;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:<?php echo esc_attr($s['color_gold']); ?>;">Kicker</p>
+                                <h3 data-dp-color="home_hero_text_color" style="margin:0 0 8px;font-size:18px;color:<?php echo esc_attr($hero_text_color); ?>;">Hero Title Text</h3>
+                                <p style="margin:0 0 12px;font-size:13px;color:<?php echo esc_attr($s['color_dark_text_soft']); ?>;">Description text goes here</p>
+                                <span style="display:inline-block;background:<?php echo esc_attr($s['color_gold']); ?>;color:<?php echo esc_attr($s['color_black']); ?>;padding:6px 16px;border-radius:<?php echo absint($s['border_radius']); ?>px;font-size:12px;font-weight:700;">CTA Button</span>
+                            </div>
+                        </div>
+                    </div>
                     <table class="form-table">
+                        <tr><th scope="row"><?php esc_html_e('Background Color', 'dp-starter'); ?></th><td>
+                            <input type="text" class="dp-color-picker" name="dp_starter_settings[home_hero_bg_color]" value="<?php echo esc_attr($s['home_hero_bg_color']); ?>" data-default-color="<?php echo esc_attr($s['color_dark_bg']); ?>">
+                            <p class="description"><?php esc_html_e('Leave empty to use Dark Section background.', 'dp-starter'); ?></p>
+                        </td></tr>
+                        <tr><th scope="row"><?php esc_html_e('Background Image', 'dp-starter'); ?></th><td>
+                            <input type="hidden" name="dp_starter_settings[home_hero_bg_image_id]" id="dp-hero-bg-id" value="<?php echo esc_attr($s['home_hero_bg_image_id']); ?>">
+                            <div id="dp-hero-bg-preview" class="dp-media-preview" <?php echo $hero_bg_image_url ? '' : 'style="display:none"'; ?>>
+                                <?php if ($hero_bg_image_url) : ?><img src="<?php echo esc_url($hero_bg_image_url); ?>" alt=""><?php endif; ?>
+                            </div>
+                            <button type="button" class="button dp-media-upload" data-target="hero-bg"><?php esc_html_e('Select Image', 'dp-starter'); ?></button>
+                            <button type="button" class="button dp-media-remove" data-target="hero-bg" <?php echo $s['home_hero_bg_image_id'] ? '' : 'style="display:none"'; ?>><?php esc_html_e('Remove', 'dp-starter'); ?></button>
+                        </td></tr>
+                        <tr><th scope="row"><?php esc_html_e('Overlay Opacity', 'dp-starter'); ?></th><td>
+                            <input type="range" name="dp_starter_settings[home_hero_overlay]" value="<?php echo esc_attr($s['home_hero_overlay']); ?>" min="0" max="1" step="0.05" style="width:200px;vertical-align:middle;">
+                            <span style="font-family:monospace;font-size:13px;margin-left:8px;"><?php echo esc_html($s['home_hero_overlay']); ?></span>
+                            <p class="description"><?php esc_html_e('Dark overlay on the background image. 0 = transparent, 1 = fully dark.', 'dp-starter'); ?></p>
+                        </td></tr>
+                        <tr><th scope="row"><?php esc_html_e('Text Color', 'dp-starter'); ?></th><td>
+                            <input type="text" class="dp-color-picker" name="dp_starter_settings[home_hero_text_color]" value="<?php echo esc_attr($s['home_hero_text_color']); ?>" data-default-color="<?php echo esc_attr($s['color_dark_text']); ?>">
+                            <p class="description"><?php esc_html_e('Leave empty to use Dark Section text color.', 'dp-starter'); ?></p>
+                        </td></tr>
                         <tr><th scope="row"><?php esc_html_e('Kicker', 'dp-starter'); ?></th><td>
                             <input type="text" name="dp_starter_settings[home_hero_kicker]" value="<?php echo esc_attr($s['home_hero_kicker']); ?>" class="regular-text">
                         </td></tr>
