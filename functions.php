@@ -639,6 +639,41 @@ function dp_starter_fix_static_page_404()
 add_action('template_redirect', 'dp_starter_fix_static_page_404', 1);
 
 /**
+ * Render the site logo (text or image based on settings).
+ *
+ * @param string $class Optional CSS class.
+ */
+function dp_starter_render_logo($class = 'dp-brand-logo')
+{
+    $mode = dp_starter_get_setting('logo_mode');
+
+    if ($mode === 'image') {
+        $url = dp_starter_get_logo_url();
+        echo '<img class="' . esc_attr($class) . '" src="' . esc_url($url) . '" alt="' . esc_attr(get_bloginfo('name')) . '">';
+        return;
+    }
+
+    $text = dp_starter_get_setting('logo_text') ?: get_bloginfo('name');
+    $bold = dp_starter_get_setting('logo_text_bold');
+
+    echo '<span class="' . esc_attr($class) . ' dp-logo-text">';
+    if ($bold && strpos($text, $bold) !== false) {
+        $before = substr($text, 0, strpos($text, $bold));
+        $after  = substr($text, strpos($text, $bold) + strlen($bold));
+        if ($before) {
+            echo esc_html($before);
+        }
+        echo '<strong>' . esc_html($bold) . '</strong>';
+        if ($after) {
+            echo esc_html($after);
+        }
+    } else {
+        echo esc_html($text);
+    }
+    echo '</span>';
+}
+
+/**
  * Return the URI for a bundled theme image.
  *
  * @param string $filename Image filename inside assets/images.

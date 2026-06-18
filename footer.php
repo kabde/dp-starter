@@ -37,7 +37,7 @@ foreach ($social_map as $key => $data) {
         <div class="dp-shell dp-footer-grid">
             <div class="dp-footer-brand">
                 <a href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php esc_attr_e('Home', 'dp-starter'); ?>">
-                    <img class="dp-footer-logo" src="<?php echo esc_url(dp_starter_get_logo_url()); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>">
+                    <?php dp_starter_render_logo('dp-footer-logo'); ?>
                 </a>
                 <?php $tagline = dp_starter_get_setting('footer_tagline'); ?>
                 <?php if ($tagline) : ?>

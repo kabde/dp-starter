@@ -17,6 +17,9 @@ function dp_starter_settings_defaults()
 {
     return array(
         // General.
+        'logo_mode'         => 'text',
+        'logo_text'         => 'Digital Product',
+        'logo_text_bold'    => 'Product',
         'logo_id'           => 0,
         'favicon_id'        => 0,
         // Appearance — Light.
@@ -235,6 +238,11 @@ function dp_starter_sanitize_settings($input)
 {
     $clean    = array();
     $defaults = dp_starter_settings_defaults();
+
+    // Logo.
+    $clean['logo_mode']      = isset($input['logo_mode']) && $input['logo_mode'] === 'image' ? 'image' : 'text';
+    $clean['logo_text']      = isset($input['logo_text']) ? sanitize_text_field($input['logo_text']) : $defaults['logo_text'];
+    $clean['logo_text_bold'] = isset($input['logo_text_bold']) ? sanitize_text_field($input['logo_text_bold']) : $defaults['logo_text_bold'];
 
     // Media IDs.
     $clean['logo_id']    = isset($input['logo_id']) ? absint($input['logo_id']) : 0;
@@ -483,9 +491,61 @@ function dp_starter_settings_page_render()
             <div class="dp-tab-content" id="tab-general">
                 <div class="dp-admin-section">
                     <h2><?php esc_html_e('Identity', 'dp-starter'); ?></h2>
+
+                    <!-- Logo preview -->
+                    <div style="margin:16px 0;padding:16px 24px;border-radius:6px;background:<?php echo esc_attr($s['color_header_bg']); ?>;border:1px solid #e5e7eb;">
+                        <?php if ($s['logo_mode'] === 'image' && $logo_url) : ?>
+                            <img src="<?php echo esc_url($logo_url); ?>" alt="" style="max-height:40px;">
+                        <?php else : ?>
+                            <span style="font-size:20px;font-weight:400;color:<?php echo esc_attr($s['color_header_text']); ?>;letter-spacing:-0.01em;"><?php
+                                $text = $s['logo_text'] ?: 'Digital Product';
+                                $bold = $s['logo_text_bold'] ?: '';
+                                if ($bold && strpos($text, $bold) !== false) {
+                                    echo esc_html(str_replace($bold, '', $text));
+                                    echo '<strong style="font-weight:800;color:' . esc_attr($s['color_header_accent']) . ';">' . esc_html($bold) . '</strong>';
+                                } else {
+                                    echo esc_html($text);
+                                }
+                            ?></span>
+                        <?php endif; ?>
+                    </div>
+
                     <table class="form-table">
                         <tr>
-                            <th scope="row"><?php esc_html_e('Logo', 'dp-starter'); ?></th>
+                            <th scope="row"><?php esc_html_e('Logo Type', 'dp-starter'); ?></th>
+                            <td>
+                                <fieldset>
+                                    <label style="margin-right:20px;">
+                                        <input type="radio" name="dp_starter_settings[logo_mode]" value="text" <?php checked($s['logo_mode'], 'text'); ?>>
+                                        <?php esc_html_e('Text Logo', 'dp-starter'); ?>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="dp_starter_settings[logo_mode]" value="image" <?php checked($s['logo_mode'], 'image'); ?>>
+                                        <?php esc_html_e('Image Logo', 'dp-starter'); ?>
+                                    </label>
+                                </fieldset>
+                            </td>
+                        </tr>
+
+                        <!-- Text logo fields -->
+                        <tr class="dp-logo-text-field" <?php echo $s['logo_mode'] === 'image' ? 'style="display:none"' : ''; ?>>
+                            <th scope="row"><?php esc_html_e('Logo Text', 'dp-starter'); ?></th>
+                            <td>
+                                <input type="text" name="dp_starter_settings[logo_text]" value="<?php echo esc_attr($s['logo_text']); ?>" class="regular-text" placeholder="Digital Product">
+                                <p class="description"><?php esc_html_e('The full text of your logo.', 'dp-starter'); ?></p>
+                            </td>
+                        </tr>
+                        <tr class="dp-logo-text-field" <?php echo $s['logo_mode'] === 'image' ? 'style="display:none"' : ''; ?>>
+                            <th scope="row"><?php esc_html_e('Bold Part', 'dp-starter'); ?></th>
+                            <td>
+                                <input type="text" name="dp_starter_settings[logo_text_bold]" value="<?php echo esc_attr($s['logo_text_bold']); ?>" class="regular-text" placeholder="Product">
+                                <p class="description"><?php esc_html_e('Part of the text to display in bold with accent color. Leave empty for uniform style.', 'dp-starter'); ?></p>
+                            </td>
+                        </tr>
+
+                        <!-- Image logo fields -->
+                        <tr class="dp-logo-image-field" <?php echo $s['logo_mode'] === 'text' ? 'style="display:none"' : ''; ?>>
+                            <th scope="row"><?php esc_html_e('Logo Image', 'dp-starter'); ?></th>
                             <td>
                                 <input type="hidden" name="dp_starter_settings[logo_id]" id="dp-logo-id" value="<?php echo esc_attr($s['logo_id']); ?>">
                                 <div id="dp-logo-preview" class="dp-media-preview" <?php echo $logo_url ? '' : 'style="display:none"'; ?>>
@@ -1794,6 +1854,18 @@ function dp_starter_settings_page_render()
             // Visual feedback
             $('.dp-palette-card').css('border-color', '#e5e7eb');
             $(this).css('border-color', '#22c55e').css('box-shadow', '0 0 0 2px rgba(34,197,94,0.3)');
+        });
+
+        /* ── Logo mode toggle ── */
+        $('input[name="dp_starter_settings[logo_mode]"]').on('change', function() {
+            var mode = $(this).val();
+            if (mode === 'text') {
+                $('.dp-logo-text-field').show();
+                $('.dp-logo-image-field').hide();
+            } else {
+                $('.dp-logo-text-field').hide();
+                $('.dp-logo-image-field').show();
+            }
         });
 
         /* ── Media uploads ── */
