@@ -588,6 +588,150 @@ function dp_starter_settings_page_render()
             <!-- ═══ APPEARANCE ═══ -->
             <div class="dp-tab-content" id="tab-appearance">
 
+                <!-- Color Palettes -->
+                <div class="dp-admin-section">
+                    <h2><?php esc_html_e('Color Palettes', 'dp-starter'); ?></h2>
+                    <p class="description"><?php esc_html_e('Click a palette to apply it instantly. You can fine-tune individual colors below.', 'dp-starter'); ?></p>
+                    <div class="dp-palettes" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:16px;">
+                    <?php
+                    $palettes = array(
+                        'seaside' => array(
+                            'name' => 'Seaside',
+                            'colors' => array(
+                                'color_bg' => '#f0fafb', 'color_bg_soft' => '#e8f7f9', 'color_panel' => '#ffffff',
+                                'color_ink' => '#0c1a1d', 'color_black' => '#0a1416',
+                                'color_muted' => '#4a6b70', 'color_muted_2' => '#6b9198',
+                                'color_gold' => '#85D1DB', 'color_gold_strong' => '#B3EBF2',
+                                'color_bronze' => '#5bb8c4', 'color_danger_soft' => '#edf9fb',
+                                'color_header_bg' => '#000000', 'color_header_text' => '#e8f5f7',
+                                'color_header_link' => '#B6F2D1', 'color_header_hover' => '#C9FDF2', 'color_header_accent' => '#85D1DB',
+                                'color_dark_bg' => '#050a0b', 'color_dark_text' => '#e8f5f7',
+                                'color_dark_text_soft' => '#b0d5db', 'color_dark_link' => '#B6F2D1', 'color_gold_hover' => '#C9FDF2',
+                            ),
+                        ),
+                        'amber' => array(
+                            'name' => 'Amber & Gold',
+                            'colors' => array(
+                                'color_bg' => '#fffaf1', 'color_bg_soft' => '#fef7ea', 'color_panel' => '#ffffff',
+                                'color_ink' => '#1a150e', 'color_black' => '#14110a',
+                                'color_muted' => '#6b5d4a', 'color_muted_2' => '#998a72',
+                                'color_gold' => '#f0b849', 'color_gold_strong' => '#e5a030',
+                                'color_bronze' => '#c08a28', 'color_danger_soft' => '#fff3ed',
+                                'color_header_bg' => '#14110a', 'color_header_text' => '#f8f2e8',
+                                'color_header_link' => '#f0d9a8', 'color_header_hover' => '#ffffff', 'color_header_accent' => '#f0b849',
+                                'color_dark_bg' => '#0e0c08', 'color_dark_text' => '#f8f2e8',
+                                'color_dark_text_soft' => '#d4c8b0', 'color_dark_link' => '#f0d9a8', 'color_gold_hover' => '#ffd47f',
+                            ),
+                        ),
+                        'royal' => array(
+                            'name' => 'Royal Indigo',
+                            'colors' => array(
+                                'color_bg' => '#f5f3ff', 'color_bg_soft' => '#ede9fe', 'color_panel' => '#ffffff',
+                                'color_ink' => '#1e1b2e', 'color_black' => '#13111d',
+                                'color_muted' => '#6b6580', 'color_muted_2' => '#8b84a0',
+                                'color_gold' => '#8b5cf6', 'color_gold_strong' => '#7c3aed',
+                                'color_bronze' => '#6d28d9', 'color_danger_soft' => '#faf5ff',
+                                'color_header_bg' => '#0f0a1a', 'color_header_text' => '#ede9fe',
+                                'color_header_link' => '#c4b5fd', 'color_header_hover' => '#ddd6fe', 'color_header_accent' => '#8b5cf6',
+                                'color_dark_bg' => '#0a0714', 'color_dark_text' => '#ede9fe',
+                                'color_dark_text_soft' => '#a5a0c0', 'color_dark_link' => '#c4b5fd', 'color_gold_hover' => '#ddd6fe',
+                            ),
+                        ),
+                        'forest' => array(
+                            'name' => 'Forest Green',
+                            'colors' => array(
+                                'color_bg' => '#f0fdf4', 'color_bg_soft' => '#ecfccb', 'color_panel' => '#ffffff',
+                                'color_ink' => '#14220a', 'color_black' => '#0f1a06',
+                                'color_muted' => '#4a6b3a', 'color_muted_2' => '#6b9850',
+                                'color_gold' => '#22c55e', 'color_gold_strong' => '#16a34a',
+                                'color_bronze' => '#15803d', 'color_danger_soft' => '#f0fdf4',
+                                'color_header_bg' => '#052e16', 'color_header_text' => '#dcfce7',
+                                'color_header_link' => '#86efac', 'color_header_hover' => '#bbf7d0', 'color_header_accent' => '#22c55e',
+                                'color_dark_bg' => '#032009', 'color_dark_text' => '#dcfce7',
+                                'color_dark_text_soft' => '#86c8a0', 'color_dark_link' => '#86efac', 'color_gold_hover' => '#bbf7d0',
+                            ),
+                        ),
+                        'coral' => array(
+                            'name' => 'Coral Sunset',
+                            'colors' => array(
+                                'color_bg' => '#fff7f5', 'color_bg_soft' => '#fef2ee', 'color_panel' => '#ffffff',
+                                'color_ink' => '#1c1210', 'color_black' => '#170e0c',
+                                'color_muted' => '#7a5a50', 'color_muted_2' => '#a08070',
+                                'color_gold' => '#f97316', 'color_gold_strong' => '#ea580c',
+                                'color_bronze' => '#c2410c', 'color_danger_soft' => '#fff7ed',
+                                'color_header_bg' => '#170e0c', 'color_header_text' => '#fed7aa',
+                                'color_header_link' => '#fdba74', 'color_header_hover' => '#fed7aa', 'color_header_accent' => '#f97316',
+                                'color_dark_bg' => '#0c0705', 'color_dark_text' => '#fed7aa',
+                                'color_dark_text_soft' => '#c8a080', 'color_dark_link' => '#fdba74', 'color_gold_hover' => '#fed7aa',
+                            ),
+                        ),
+                        'midnight' => array(
+                            'name' => 'Midnight Blue',
+                            'colors' => array(
+                                'color_bg' => '#f0f4ff', 'color_bg_soft' => '#e8eeff', 'color_panel' => '#ffffff',
+                                'color_ink' => '#0e1629', 'color_black' => '#0a1020',
+                                'color_muted' => '#4a5578', 'color_muted_2' => '#6b7aa0',
+                                'color_gold' => '#3b82f6', 'color_gold_strong' => '#2563eb',
+                                'color_bronze' => '#1d4ed8', 'color_danger_soft' => '#eff6ff',
+                                'color_header_bg' => '#0a1020', 'color_header_text' => '#dbeafe',
+                                'color_header_link' => '#93c5fd', 'color_header_hover' => '#bfdbfe', 'color_header_accent' => '#3b82f6',
+                                'color_dark_bg' => '#060a16', 'color_dark_text' => '#dbeafe',
+                                'color_dark_text_soft' => '#8aa0c8', 'color_dark_link' => '#93c5fd', 'color_gold_hover' => '#bfdbfe',
+                            ),
+                        ),
+                        'rose' => array(
+                            'name' => 'Rose Petal',
+                            'colors' => array(
+                                'color_bg' => '#fff5f7', 'color_bg_soft' => '#fce7f3', 'color_panel' => '#ffffff',
+                                'color_ink' => '#1c0f14', 'color_black' => '#140a0e',
+                                'color_muted' => '#7a5060', 'color_muted_2' => '#a07888',
+                                'color_gold' => '#ec4899', 'color_gold_strong' => '#db2777',
+                                'color_bronze' => '#be185d', 'color_danger_soft' => '#fdf2f8',
+                                'color_header_bg' => '#140a0e', 'color_header_text' => '#fce7f3',
+                                'color_header_link' => '#f9a8d4', 'color_header_hover' => '#fbcfe8', 'color_header_accent' => '#ec4899',
+                                'color_dark_bg' => '#0a0507', 'color_dark_text' => '#fce7f3',
+                                'color_dark_text_soft' => '#c890a8', 'color_dark_link' => '#f9a8d4', 'color_gold_hover' => '#fbcfe8',
+                            ),
+                        ),
+                        'charcoal' => array(
+                            'name' => 'Charcoal Minimal',
+                            'colors' => array(
+                                'color_bg' => '#fafafa', 'color_bg_soft' => '#f4f4f5', 'color_panel' => '#ffffff',
+                                'color_ink' => '#18181b', 'color_black' => '#09090b',
+                                'color_muted' => '#71717a', 'color_muted_2' => '#a1a1aa',
+                                'color_gold' => '#18181b', 'color_gold_strong' => '#27272a',
+                                'color_bronze' => '#3f3f46', 'color_danger_soft' => '#fafafa',
+                                'color_header_bg' => '#09090b', 'color_header_text' => '#fafafa',
+                                'color_header_link' => '#d4d4d8', 'color_header_hover' => '#ffffff', 'color_header_accent' => '#ffffff',
+                                'color_dark_bg' => '#09090b', 'color_dark_text' => '#fafafa',
+                                'color_dark_text_soft' => '#a1a1aa', 'color_dark_link' => '#d4d4d8', 'color_gold_hover' => '#e4e4e7',
+                            ),
+                        ),
+                    );
+
+                    foreach ($palettes as $id => $palette) :
+                        $c = $palette['colors'];
+                    ?>
+                        <button type="button" class="dp-palette-card" data-palette="<?php echo esc_attr($id); ?>" style="cursor:pointer;border:2px solid #e5e7eb;border-radius:8px;padding:0;background:none;text-align:left;overflow:hidden;transition:border-color 150ms,box-shadow 150ms;" onmouseover="this.style.borderColor='#85D1DB';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'" onmouseout="this.style.borderColor='#e5e7eb';this.style.boxShadow='none'">
+                            <div style="display:flex;height:36px;">
+                                <div style="flex:1;background:<?php echo esc_attr($c['color_header_bg']); ?>;"></div>
+                                <div style="flex:1;background:<?php echo esc_attr($c['color_gold']); ?>;"></div>
+                                <div style="flex:1;background:<?php echo esc_attr($c['color_bg']); ?>;"></div>
+                                <div style="flex:1;background:<?php echo esc_attr($c['color_bg_soft']); ?>;"></div>
+                                <div style="flex:1;background:<?php echo esc_attr($c['color_dark_bg']); ?>;"></div>
+                            </div>
+                            <div style="padding:10px 12px;">
+                                <strong style="font-size:13px;color:#1d2327;"><?php echo esc_html($palette['name']); ?></strong>
+                            </div>
+                        </button>
+                    <?php endforeach; ?>
+                    </div>
+
+                    <script>
+                    var dpPalettes = <?php echo wp_json_encode(array_map(function($p) { return $p['colors']; }, $palettes)); ?>;
+                    </script>
+                </div>
+
                 <!-- Header & Navigation -->
                 <div class="dp-admin-section">
                     <h2><?php esc_html_e('Header & Navigation', 'dp-starter'); ?></h2>
@@ -1517,6 +1661,26 @@ function dp_starter_settings_page_render()
             $.each(defaultValues, function(key, val) {
                 $('input[name="dp_starter_settings[' + key + ']"]').val(val).wpColorPicker('color', val);
             });
+        });
+
+        /* ── Palette selector ── */
+        $('.dp-palette-card').on('click', function() {
+            var id = $(this).data('palette');
+            if (!dpPalettes[id]) return;
+            if (!confirm('<?php echo esc_js(__('Apply this palette? Your current colors will be replaced.', 'dp-starter')); ?>')) return;
+            $.each(dpPalettes[id], function(key, val) {
+                var $input = $('input[name="dp_starter_settings[' + key + ']"]');
+                if ($input.length) {
+                    $input.val(val);
+                    if ($input.hasClass('dp-color-picker')) {
+                        $input.wpColorPicker('color', val);
+                    }
+                }
+            });
+            dpUpdatePreviews();
+            // Visual feedback
+            $('.dp-palette-card').css('border-color', '#e5e7eb');
+            $(this).css('border-color', '#22c55e').css('box-shadow', '0 0 0 2px rgba(34,197,94,0.3)');
         });
 
         /* ── Media uploads ── */
