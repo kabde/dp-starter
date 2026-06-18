@@ -68,6 +68,18 @@ function dp_starter_on_activation()
             if ($slug === 'blog') {
                 update_option('page_for_posts', $post_id);
             }
+            // Auto-assign legal pages to checkout policy links.
+            $policy_map = array(
+                'refund-policy'        => 'checkout_page_refund',
+                'privacy-policy'       => 'checkout_page_privacy',
+                'terms-and-conditions' => 'checkout_page_terms',
+                'contact'              => 'checkout_page_contact',
+            );
+            if (isset($policy_map[$slug])) {
+                $settings = get_option('dp_starter_settings', array());
+                $settings[$policy_map[$slug]] = $post_id;
+                update_option('dp_starter_settings', $settings);
+            }
         }
     }
 
@@ -121,6 +133,31 @@ function dp_starter_required_pages()
             'title'    => __('Blog', 'dp-starter'),
             'template' => '',
             'content'  => '',
+        ),
+        'checkout' => array(
+            'title'    => __('Checkout', 'dp-starter'),
+            'template' => 'page-checkout.php',
+            'content'  => '',
+        ),
+        'contact' => array(
+            'title'    => __('Contact', 'dp-starter'),
+            'template' => '',
+            'content'  => '<p>' . __('Have a question? Reach out to us.', 'dp-starter') . '</p><p>' . __('Email: [your@email.com]', 'dp-starter') . '</p>',
+        ),
+        'refund-policy' => array(
+            'title'    => __('Refund Policy', 'dp-starter'),
+            'template' => '',
+            'content'  => '<h2>' . __('Refund Policy', 'dp-starter') . '</h2><p>' . __('We offer a 30-day money-back guarantee on all digital products. If you are not satisfied, contact us within 30 days of purchase for a full refund.', 'dp-starter') . '</p><p>' . __('Custom work, consulting, and personalized services are non-refundable.', 'dp-starter') . '</p>',
+        ),
+        'privacy-policy' => array(
+            'title'    => __('Privacy Policy', 'dp-starter'),
+            'template' => '',
+            'content'  => '<h2>' . __('Privacy Policy', 'dp-starter') . '</h2><p>' . __('Your privacy matters. We collect only the information necessary to process your orders and improve your experience. We do not sell or share your personal data with third parties.', 'dp-starter') . '</p><p>' . __('For questions about your data, contact us at [your@email.com].', 'dp-starter') . '</p>',
+        ),
+        'terms-and-conditions' => array(
+            'title'    => __('Terms and Conditions', 'dp-starter'),
+            'template' => '',
+            'content'  => '<h2>' . __('Terms and Conditions', 'dp-starter') . '</h2><p>' . __('By purchasing and using our digital products, you agree to these terms. All products are delivered digitally and are for personal or business use only. Redistribution is prohibited.', 'dp-starter') . '</p>',
         ),
     );
 }
@@ -189,6 +226,18 @@ function dp_starter_ajax_setup_pages()
             // Set "Blog" as the posts page.
             if ($slug === 'blog') {
                 update_option('page_for_posts', $post_id);
+            }
+            // Auto-assign legal pages to checkout policy links.
+            $policy_map = array(
+                'refund-policy'        => 'checkout_page_refund',
+                'privacy-policy'       => 'checkout_page_privacy',
+                'terms-and-conditions' => 'checkout_page_terms',
+                'contact'              => 'checkout_page_contact',
+            );
+            if (isset($policy_map[$slug])) {
+                $settings = get_option('dp_starter_settings', array());
+                $settings[$policy_map[$slug]] = $post_id;
+                update_option('dp_starter_settings', $settings);
             }
             $created[] = $page['title'];
         }
