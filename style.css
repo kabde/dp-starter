@@ -2564,8 +2564,8 @@ a:hover .dp-text-link::after,
 /* Pre-footer navigation band */
 .dp-prefooter {
   padding: 28px 0;
-  background: var(--dp-bg-soft);
-  border-top: 1px solid var(--dp-line);
+  background: var(--dp-header-bg, var(--dp-dark-bg));
+  border-top: 2px solid var(--dp-header-accent, var(--dp-gold));
 }
 
 .dp-prefooter .dp-shell {
@@ -2576,25 +2576,50 @@ a:hover .dp-text-link::after,
   flex-wrap: wrap;
 }
 
-.dp-prefooter-menu {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.dp-prefooter * {
+  box-sizing: border-box;
 }
 
-.dp-prefooter-menu a {
-  color: var(--dp-ink);
+.dp-prefooter nav,
+.dp-prefooter nav ul,
+.dp-prefooter-nav,
+.dp-prefooter-nav ul,
+.dp-prefooter-menu {
+  display: flex !important;
+  flex-flow: row wrap !important;
+  align-items: center !important;
+  gap: 20px !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.dp-prefooter nav ul li,
+.dp-prefooter-nav ul li,
+.dp-prefooter-menu li,
+.dp-prefooter li,
+.dp-prefooter .menu-item {
+  display: inline !important;
+  float: none !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+}
+
+.dp-prefooter nav ul li a,
+.dp-prefooter a:not(.dp-button) {
+  color: var(--dp-header-link, var(--dp-dark-link));
   font-size: 0.9rem;
   font-weight: 700;
   text-decoration: none;
   transition: color 160ms;
+  display: inline !important;
 }
 
-.dp-prefooter-menu a:hover {
-  color: var(--dp-gold);
+.dp-prefooter nav ul li a:hover,
+.dp-prefooter a:not(.dp-button):hover {
+  color: var(--dp-header-hover, var(--dp-gold-hover));
 }
 
 .dp-site-footer {
@@ -2640,8 +2665,21 @@ a:hover .dp-text-link::after,
 }
 
 .dp-footer-menu li {
-  display: inline-flex;
-  margin: 0;
+  display: inline-flex !important;
+  list-style: none !important;
+  margin: 0 !important;
+}
+
+.dp-footer-menu,
+.dp-footer-nav .dp-footer-menu {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 18px !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 .dp-footer-menu a {

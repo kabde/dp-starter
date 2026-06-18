@@ -88,6 +88,55 @@ function dp_starter_on_activation()
         update_option('permalink_structure', '/%postname%/');
     }
 
+    // Create default menus and assign to locations.
+    $menu_locations = get_theme_mod('nav_menu_locations', array());
+    $menus_config = array(
+        'primary' => array(
+            'name'  => 'Primary',
+            'items' => array('blog' => 'Guides', 'tools' => 'Tools', 'books' => 'Books', 'start-here' => 'Start Here'),
+        ),
+        'prefooter' => array(
+            'name'  => 'Pre-Footer',
+            'items' => array('blog' => 'Guides', 'tools' => 'Tools', 'books' => 'Books', 'start-here' => 'Start Here'),
+        ),
+        'legal' => array(
+            'name'  => 'Legal',
+            'items' => array('privacy-policy' => 'Privacy Policy', 'terms-and-conditions' => 'Terms & Conditions', 'refund-policy' => 'Refund Policy', 'contact' => 'Contact'),
+        ),
+    );
+
+    foreach ($menus_config as $location => $config) {
+        if (!empty($menu_locations[$location])) {
+            continue; // Already assigned.
+        }
+        $menu_name = 'DP Starter ' . $config['name'];
+        $menu = wp_get_nav_menu_object($menu_name);
+        if (!$menu) {
+            $menu_id = wp_create_nav_menu($menu_name);
+            if (!is_wp_error($menu_id)) {
+                $pos = 0;
+                foreach ($config['items'] as $slug => $label) {
+                    $pos++;
+                    $page = get_page_by_path($slug);
+                    if ($page) {
+                        wp_update_nav_menu_item($menu_id, 0, array(
+                            'menu-item-title'     => $label,
+                            'menu-item-object'    => 'page',
+                            'menu-item-object-id' => $page->ID,
+                            'menu-item-type'      => 'post_type',
+                            'menu-item-status'    => 'publish',
+                            'menu-item-position'  => $pos,
+                        ));
+                    }
+                }
+                $menu_locations[$location] = $menu_id;
+            }
+        } else {
+            $menu_locations[$location] = $menu->term_id;
+        }
+    }
+    set_theme_mod('nav_menu_locations', $menu_locations);
+
     flush_rewrite_rules();
 }
 add_action('after_switch_theme', 'dp_starter_on_activation');
