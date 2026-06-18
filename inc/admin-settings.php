@@ -53,6 +53,7 @@ function dp_starter_settings_defaults()
         'font_heading' => 'Inter',
         // Checkout.
         'checkout_focused_mode'  => '1',
+        'offer_skip_cart'        => '0',
         'checkout_trust_text'    => 'Secure payment. Instant access after purchase. 30-day money-back guarantee.',
         'checkout_page_refund'   => 0,
         'checkout_page_shipping' => 0,
@@ -286,6 +287,7 @@ function dp_starter_sanitize_settings($input)
     // Maintenance.
     // Checkout.
     $clean['checkout_focused_mode'] = !empty($input['checkout_focused_mode']) ? '1' : '0';
+    $clean['offer_skip_cart']       = !empty($input['offer_skip_cart']) ? '1' : '0';
     $clean['checkout_trust_text'] = isset($input['checkout_trust_text']) ? sanitize_text_field($input['checkout_trust_text']) : $defaults['checkout_trust_text'];
     $checkout_page_keys = array('checkout_page_refund', 'checkout_page_shipping', 'checkout_page_privacy', 'checkout_page_terms', 'checkout_page_contact');
     foreach ($checkout_page_keys as $key) {
@@ -1257,6 +1259,12 @@ function dp_starter_settings_page_render()
                             <label>
                                 <input type="checkbox" name="dp_starter_settings[checkout_focused_mode]" value="1" <?php checked($s['checkout_focused_mode'], '1'); ?>>
                                 <?php esc_html_e('Simplify checkout: hide navigation menu, CTA, social links. Show only logo and policy popups.', 'dp-starter'); ?>
+                            </label>
+                        </td></tr>
+                        <tr><th scope="row"><?php esc_html_e('Skip Cart', 'dp-starter'); ?></th><td>
+                            <label>
+                                <input type="checkbox" name="dp_starter_settings[offer_skip_cart]" value="1" <?php checked($s['offer_skip_cart'], '1'); ?>>
+                                <?php esc_html_e('Send customers directly to checkout (skip cart page). Default: go to cart first.', 'dp-starter'); ?>
                             </label>
                         </td></tr>
                         <?php endif; ?>
