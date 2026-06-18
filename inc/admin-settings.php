@@ -380,7 +380,7 @@ function dp_starter_sanitize_settings($input)
 
 function dp_starter_admin_enqueue($hook)
 {
-    if ('appearance_page_dp-starter-settings' !== $hook) {
+    if ('toplevel_page_dp-starter-settings' !== $hook) {
         return;
     }
     wp_enqueue_media();
