@@ -558,19 +558,31 @@ add_filter('document_title_parts', 'dp_starter_document_title_parts');
  */
 function dp_starter_checkout_focused_class($classes)
 {
-    if (!dp_starter_is_licensed() || dp_starter_get_setting('checkout_focused_mode') !== '1') {
+    if (!dp_starter_is_licensed()) {
         return $classes;
     }
 
-    if (is_page_template('page-checkout.php') || is_page_template('template-lead-capture.php')) {
-        $classes[] = 'dp-checkout-mode';
+    $focused = false;
+
+    // Global checkout focused mode (cart + checkout + lead capture template).
+    if (dp_starter_get_setting('checkout_focused_mode') === '1') {
+        if (is_page_template('page-checkout.php') || is_page_template('template-lead-capture.php')) {
+            $focused = true;
+        }
+        if (function_exists('is_checkout') && is_checkout()) {
+            $focused = true;
+        }
+        if (function_exists('is_cart') && is_cart()) {
+            $focused = true;
+        }
     }
 
-    // Also apply on WooCommerce cart and checkout if available.
-    if (function_exists('is_checkout') && is_checkout()) {
-        $classes[] = 'dp-checkout-mode';
+    // Per-page focused mode (any page can opt-in via metabox).
+    if (is_page() && get_post_meta(get_the_ID(), 'dp_page_focused_mode', true) === '1') {
+        $focused = true;
     }
-    if (function_exists('is_cart') && is_cart()) {
+
+    if ($focused) {
         $classes[] = 'dp-checkout-mode';
     }
 
@@ -772,6 +784,21 @@ function dp_starter_render_page_hero_metabox($post)
         echo '</p>';
     }
 
+    // Focused mode (premium) — per-page override.
+    if (dp_starter_is_licensed()) {
+        $focused = get_post_meta($post->ID, 'dp_page_focused_mode', true);
+        ?>
+        <hr>
+        <p>
+            <label>
+                <input type="checkbox" name="dp_page_focused_mode" value="1" <?php checked($focused, '1'); ?>>
+                <strong><?php esc_html_e('Focused Mode', 'dp-starter'); ?></strong>
+                — <?php esc_html_e('Hide navigation, show only logo and policy links. Ideal for lead capture, checkout, and landing pages.', 'dp-starter'); ?>
+            </label>
+        </p>
+        <?php
+    }
+
     // Hero background image field.
     $bg_id  = (int) get_post_meta($post->ID, 'dp_page_hero_bg_id', true);
     $bg_url = $bg_id ? wp_get_attachment_image_url($bg_id, 'large') : '';
@@ -856,6 +883,9 @@ function dp_starter_save_page_hero_meta($post_id)
     if (isset($_POST['dp_page_hero_bg_id'])) {
         update_post_meta($post_id, 'dp_page_hero_bg_id', absint($_POST['dp_page_hero_bg_id']));
     }
+
+    // Save focused mode.
+    update_post_meta($post_id, 'dp_page_focused_mode', isset($_POST['dp_page_focused_mode']) ? '1' : '0');
 }
 add_action('save_post_page', 'dp_starter_save_page_hero_meta');
 
