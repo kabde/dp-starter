@@ -122,11 +122,6 @@ function dp_starter_required_pages()
             'template' => '',
             'content'  => '',
         ),
-        'platforms' => array(
-            'title'    => __('Platforms', 'dp-starter'),
-            'template' => '',
-            'content'  => '',
-        ),
     );
 }
 
