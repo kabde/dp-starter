@@ -31,7 +31,6 @@ get_header();
             <div class="dp-error-links">
                 <a href="<?php echo esc_url(home_url('/tools/')); ?>"><?php esc_html_e('Tools', 'dp-starter'); ?></a>
                 <a href="<?php echo esc_url(home_url('/books/')); ?>"><?php esc_html_e('Books', 'dp-starter'); ?></a>
-                <a href="<?php echo esc_url(home_url('/platforms/')); ?>"><?php esc_html_e('Platforms', 'dp-starter'); ?></a>
             </div>
         </div>
     </div>

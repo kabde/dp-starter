@@ -193,6 +193,17 @@ button {
   color: var(--dp-dark-text);
 }
 
+/* Focus visible for keyboard navigation */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--dp-gold);
+  outline-offset: 2px;
+}
+
 .dp-brand-logo {
   width: 156px;
   height: auto;

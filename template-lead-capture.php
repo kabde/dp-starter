@@ -68,7 +68,7 @@ while (have_posts()) :
 
             <?php if ($form_html) : ?>
                 <!-- Plugin form -->
-                <?php echo $form_html; ?>
+                <?php echo wp_kses_post($form_html); ?>
             <?php else : ?>
                 <!-- Built-in fallback form -->
                 <form id="dp-lead-form">

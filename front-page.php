@@ -250,7 +250,7 @@ if ($hero_text_color) {
                         <?php if (has_post_thumbnail()) : ?>
                             <?php the_post_thumbnail('dp-starter-square'); ?>
                         <?php elseif ($cover_url) : ?>
-                            <img src="<?php echo esc_url($cover_url); ?>" alt="">
+                            <img src="<?php echo esc_url($cover_url); ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
                         <?php else : ?>
                             <div class="dp-book-cover-placeholder"><span><?php esc_html_e('Book', 'dp-starter'); ?></span></div>
                         <?php endif; ?>

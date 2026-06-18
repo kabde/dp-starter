@@ -9,6 +9,16 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+if (!post_type_exists('book')) {
+    get_header();
+    echo '<div class="dp-section"><div class="dp-shell"><div class="dp-empty-state">';
+    echo '<h1>' . esc_html__('Books', 'dp-starter') . '</h1>';
+    echo '<p>' . esc_html__('This feature requires a premium license. Activate your license in DP Starter Settings to unlock Books.', 'dp-starter') . '</p>';
+    echo '</div></div></div>';
+    get_footer();
+    return;
+}
+
 get_header();
 
 while (have_posts()) :
