@@ -2606,9 +2606,13 @@ a:hover .dp-text-link::after,
 
 .dp-footer-grid {
   display: grid;
-  grid-template-columns: minmax(260px, 1fr) auto auto;
+  grid-template-columns: auto 1fr;
   gap: 28px;
   align-items: center;
+}
+
+.dp-footer-nav {
+  justify-self: end;
 }
 
 .dp-footer-brand {
