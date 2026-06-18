@@ -429,7 +429,7 @@ select:focus-visible,
 
 .dp-kicker {
   margin: 0 0 14px;
-  color: var(--dp-bronze);
+  color: var(--dp-muted);
   font-size: 0.8rem;
   font-weight: 900;
   letter-spacing: 0;
@@ -608,7 +608,7 @@ p {
   padding: 0 10px;
   border: 1px solid var(--dp-gold);
   border-radius: 999px;
-  color: var(--dp-bronze);
+  color: var(--dp-ink);
   background: var(--dp-danger-soft);
   font-size: 0.74rem;
   font-weight: 950;
@@ -785,7 +785,7 @@ p {
   display: inline-flex;
   align-items: center;
   margin-top: 8px;
-  color: var(--dp-bronze);
+  color: var(--dp-muted);
   font-size: 0.88rem;
   font-weight: 950;
   text-decoration: none;

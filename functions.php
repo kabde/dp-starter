@@ -377,6 +377,9 @@ function dp_starter_seo_meta()
     $description = '';
     if (is_front_page() || is_home()) {
         $description = get_bloginfo('description');
+        if (!$description) {
+            $description = dp_starter_get_setting('home_hero_description');
+        }
     } elseif (is_singular()) {
         $post = get_queried_object();
         if ($post && has_excerpt($post->ID)) {
@@ -393,19 +396,29 @@ function dp_starter_seo_meta()
     }
 
     // Canonical URL.
-    if (is_singular()) {
-        echo '<link rel="canonical" href="' . esc_url(get_permalink()) . '">' . "\n";
-    } elseif (is_front_page()) {
+    if (is_front_page()) {
         echo '<link rel="canonical" href="' . esc_url(home_url('/')) . '">' . "\n";
+    } elseif (is_singular()) {
+        echo '<link rel="canonical" href="' . esc_url(get_permalink()) . '">' . "\n";
     }
 
     // Open Graph basic tags.
-    $og_title = is_singular() ? get_the_title() : get_bloginfo('name');
-    $og_url   = is_singular() ? get_permalink() : home_url('/');
-    $og_type  = is_singular() ? 'article' : 'website';
+    if (is_front_page()) {
+        $og_title = get_bloginfo('name');
+        $og_url   = home_url('/');
+        $og_type  = 'website';
+    } elseif (is_singular()) {
+        $og_title = get_the_title();
+        $og_url   = get_permalink();
+        $og_type  = 'article';
+    } else {
+        $og_title = get_bloginfo('name');
+        $og_url   = home_url('/');
+        $og_type  = 'website';
+    }
     $og_image = '';
 
-    if (is_singular() && has_post_thumbnail()) {
+    if (is_singular() && !is_front_page() && has_post_thumbnail()) {
         $og_image = get_the_post_thumbnail_url(get_queried_object_id(), 'large');
     }
 
@@ -441,7 +454,7 @@ function dp_starter_schema_jsonld()
         'url'      => home_url('/'),
     );
 
-    if (is_singular()) {
+    if (is_singular() && !is_front_page()) {
         $post = get_queried_object();
         $schema = array(
             '@context'      => 'https://schema.org',
