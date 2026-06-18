@@ -52,6 +52,7 @@ function dp_starter_settings_defaults()
         'font_body'    => 'Inter',
         'font_heading' => 'Inter',
         // Checkout.
+        'checkout_focused_mode'  => '1',
         'checkout_trust_text'    => 'Secure payment. Instant access after purchase. 30-day money-back guarantee.',
         'checkout_page_refund'   => 0,
         'checkout_page_shipping' => 0,
@@ -284,6 +285,7 @@ function dp_starter_sanitize_settings($input)
 
     // Maintenance.
     // Checkout.
+    $clean['checkout_focused_mode'] = !empty($input['checkout_focused_mode']) ? '1' : '0';
     $clean['checkout_trust_text'] = isset($input['checkout_trust_text']) ? sanitize_text_field($input['checkout_trust_text']) : $defaults['checkout_trust_text'];
     $checkout_page_keys = array('checkout_page_refund', 'checkout_page_shipping', 'checkout_page_privacy', 'checkout_page_terms', 'checkout_page_contact');
     foreach ($checkout_page_keys as $key) {
@@ -1250,6 +1252,12 @@ function dp_starter_settings_page_render()
                 <div class="dp-admin-section">
                     <h2><?php esc_html_e('Checkout', 'dp-starter'); ?></h2>
                     <table class="form-table">
+                        <tr><th scope="row"><?php esc_html_e('Focused Mode', 'dp-starter'); ?></th><td>
+                            <label>
+                                <input type="checkbox" name="dp_starter_settings[checkout_focused_mode]" value="1" <?php checked($s['checkout_focused_mode'], '1'); ?>>
+                                <?php esc_html_e('Simplify checkout: hide navigation menu, CTA, social links. Show only logo and policy popups.', 'dp-starter'); ?>
+                            </label>
+                        </td></tr>
                         <tr><th scope="row"><?php esc_html_e('Trust Text', 'dp-starter'); ?></th><td>
                             <input type="text" name="dp_starter_settings[checkout_trust_text]" value="<?php echo esc_attr($s['checkout_trust_text']); ?>" class="large-text">
                             <p class="description"><?php esc_html_e('Displayed under the Place Order button to reassure buyers.', 'dp-starter'); ?></p>

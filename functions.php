@@ -496,6 +496,31 @@ function dp_starter_document_title_parts($title)
 add_filter('document_title_parts', 'dp_starter_document_title_parts');
 
 /**
+ * Add focused checkout mode body class when enabled in settings.
+ *
+ * @param array $classes Body classes.
+ * @return array
+ */
+function dp_starter_checkout_focused_class($classes)
+{
+    if (dp_starter_get_setting('checkout_focused_mode') !== '1') {
+        return $classes;
+    }
+
+    if (is_page_template('page-checkout.php') || is_page_template('template-lead-capture.php')) {
+        $classes[] = 'dp-checkout-mode';
+    }
+
+    // Also apply on WooCommerce checkout if available.
+    if (function_exists('is_checkout') && is_checkout()) {
+        $classes[] = 'dp-checkout-mode';
+    }
+
+    return $classes;
+}
+add_filter('body_class', 'dp_starter_checkout_focused_class');
+
+/**
  * Add defer to theme script and optimize resource loading.
  *
  * @param string $tag    Script tag HTML.
